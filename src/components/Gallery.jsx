@@ -1,11 +1,10 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import { Card, CardMedia, Typography, Box } from '@mui/material';
 import { galleryItems } from '../data/bethesdaData';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export default function Gallery() {
@@ -26,13 +25,12 @@ export default function Gallery() {
         </div>
 
         <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Pagination, Autoplay]}
           slidesPerView={1}
           spaceBetween={20}
           loop={true}
           autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
           pagination={{ clickable: true }}
-          navigation={true}
           breakpoints={{
             480: { slidesPerView: 2 },
             768: { slidesPerView: 3 },

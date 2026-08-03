@@ -1,8 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 import { Card, CardMedia, CardContent, CardActions, Button, Typography } from '@mui/material';
@@ -38,8 +37,7 @@ export default function Causes({ onOpenDonate }) {
             pauseOnMouseEnter: true,
           }}
           pagination={{ clickable: true }}
-          navigation={true}
-          modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+          modules={[Pagination, Autoplay, EffectCoverflow]}
           coverflowEffect={{
             rotate: 30,
             stretch: 0,

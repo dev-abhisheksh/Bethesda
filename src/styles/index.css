@@ -206,3 +206,10 @@ img { max-width: 100%; height: auto; display: block; }
   .section-badge { font-size: 12px; padding: 4px 12px; }
   .preset-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
 }
+
+/* Hide side navigation buttons from all carousels */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
