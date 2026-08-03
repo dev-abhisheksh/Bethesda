@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Preloader from './components/Preloader';
+import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ImpactCounters from './components/ImpactCounters';
@@ -16,6 +17,8 @@ import { initAnimeSmoothScroll, smoothScrollTo } from './utils/smoothScroll';
 
 export default function App() {
   const [theme, setTheme] = useState('light');
+  const [isThemeSwitching, setIsThemeSwitching] = useState(false);
+  const [targetTheme, setTargetTheme] = useState('dark');
   const [donateOpen, setDonateOpen] = useState(false);
   const [selectedCause, setSelectedCause] = useState('');
   const [selectedAmount, setSelectedAmount] = useState(2500);
@@ -31,7 +34,18 @@ export default function App() {
   }, []);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    if (isThemeSwitching) return;
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTargetTheme(nextTheme);
+    setIsThemeSwitching(true);
+
+    setTimeout(() => {
+      setTheme(nextTheme);
+    }, 280);
+
+    setTimeout(() => {
+      setIsThemeSwitching(false);
+    }, 750);
   };
 
   const handleOpenDonate = (causeTitle = '', amountVal = 2500) => {
@@ -52,6 +66,9 @@ export default function App() {
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       {/* Initial Page Splash Preloader */}
       <Preloader />
+
+      {/* Theme Switcher Animated Transition Screen */}
+      <ThemeTransitionOverlay active={isThemeSwitching} targetTheme={targetTheme} />
 
       {/* Navigation Bar */}
       <Navbar
