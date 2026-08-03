@@ -66,7 +66,7 @@ export default function Calculator({ onOpenDonate }) {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <CalcIcon size={24} style={{ color: 'var(--brand-primary)' }} />
-                <span style={{ fontSize: '18px', fontWeight: '700' }}>Choose Donation Amount</span>
+                <span style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text-primary)' }}>Choose Donation Amount</span>
               </div>
               <span style={{ fontSize: '13px', color: 'var(--brand-accent)', fontWeight: '700' }}>Tax Exemption Eligible</span>
             </div>
