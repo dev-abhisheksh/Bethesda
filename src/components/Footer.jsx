@@ -71,7 +71,6 @@ export default function Footer({ onOpenDonate }) {
               <a href="#causes" style={{ color: '#cbd5e1' }}>Our Causes</a>
               <a href="#impact" style={{ color: '#cbd5e1' }}>Impact Metrics</a>
               <a href="#calculator" style={{ color: '#cbd5e1' }}>Impact Calculator</a>
-              <a href="#stories" style={{ color: '#cbd5e1' }}>Beneficiary Stories</a>
             </div>
           </div>
 
