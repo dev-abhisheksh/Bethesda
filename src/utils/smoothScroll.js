@@ -3,10 +3,10 @@ import { animate } from 'animejs';
 /**
  * Smoothly scrolls to a target selector or element using Anime.js v4
  * @param {string|HTMLElement} target - Selector string (e.g., "#causes") or DOM element
- * @param {number} duration - Scroll animation duration in ms (default 900ms)
+ * @param {number} customDuration - Custom duration override (optional)
  * @param {number} offset - Vertical offset compensation (e.g., -70 for fixed header)
  */
-export const smoothScrollTo = (target, duration = 900, offset = -70) => {
+export const smoothScrollTo = (target, customDuration = null, offset = -70) => {
   let element = null;
 
   if (typeof target === 'string') {
@@ -17,14 +17,18 @@ export const smoothScrollTo = (target, duration = 900, offset = -70) => {
 
   if (!element) return;
 
-  const targetPosition = Math.max(0, element.getBoundingClientRect().top + window.pageYOffset + offset);
-  const startPosition = window.pageYOffset;
+  const startPosition = window.pageYOffset || document.documentElement.scrollTop;
+  const targetPosition = Math.max(0, element.getBoundingClientRect().top + startPosition + offset);
+  const distance = Math.abs(targetPosition - startPosition);
+
+  // Dynamic duration calculation: short distance = ~500ms, long distance = ~1000ms
+  const calculatedDuration = customDuration || Math.min(1100, Math.max(500, Math.round(distance * 0.4)));
 
   const scrollObj = { y: startPosition };
 
   animate(scrollObj, {
     y: targetPosition,
-    duration: duration,
+    duration: calculatedDuration,
     ease: 'inOutQuint',
     onUpdate: () => {
       window.scrollTo(0, scrollObj.y);
@@ -42,7 +46,7 @@ export const initAnimeSmoothScroll = () => {
       const targetId = anchor.getAttribute('href');
       if (targetId && targetId !== '#') {
         e.preventDefault();
-        smoothScrollTo(targetId, 900, -70);
+        smoothScrollTo(targetId, null, -70);
       }
     }
   };
