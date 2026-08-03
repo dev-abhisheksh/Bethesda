@@ -46,6 +46,9 @@ export default function Gallery() {
                 overflow: 'hidden', 
                 position: 'relative', 
                 height: 'clamp(180px, 30vw, 260px)',
+                bgcolor: 'var(--bg-card)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-glass)',
                 boxShadow: 'var(--shadow-md)'
               }}>
                 <CardMedia

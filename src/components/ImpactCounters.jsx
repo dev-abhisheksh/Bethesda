@@ -64,8 +64,10 @@ export default function ImpactCounters() {
                 borderRadius: 4,
                 transition: '0.3s',
                 backgroundColor: 'var(--bg-card)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-glass)',
                 boxShadow: 'var(--shadow-sm)',
-                '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 }
+                '&:hover': { transform: 'translateY(-4px)', boxShadow: 'var(--shadow-lg)' }
               }}>
                 <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
                   {/* Icon Header */}

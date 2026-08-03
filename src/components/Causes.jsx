@@ -52,8 +52,6 @@ export default function Causes({ onOpenDonate }) {
           style={{ padding: '20px 0 60px' }}
         >
           {causes.map((cause) => {
-            const percent = Math.min(100, Math.round((cause.raised / cause.goal) * 100));
-
             return (
               <SwiperSlide key={cause.id}>
                 <Card 
@@ -61,9 +59,13 @@ export default function Causes({ onOpenDonate }) {
                   sx={{ 
                     maxWidth: 'none', 
                     borderRadius: 4, 
-                    overflow: 'hidden', 
+                    overflow: 'hidden',
+                    bgcolor: 'var(--bg-card)',
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border-glass)',
+                    boxShadow: 'var(--shadow-md)',
                     transition: '0.3s', 
-                    '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 } 
+                    '&:hover': { transform: 'translateY(-4px)', boxShadow: 'var(--shadow-lg)' } 
                   }}
                 >
                   <div style={{ position: 'relative' }}>
@@ -78,56 +80,35 @@ export default function Causes({ onOpenDonate }) {
                       top: '12px',
                       right: '12px',
                       padding: '4px 12px',
-                      background: 'var(--brand-light, #ecfdf5)',
-                      color: 'var(--brand-primary, #10b981)',
+                      background: 'var(--brand-light)',
+                      color: 'var(--brand-primary)',
                       fontSize: '12px',
                       fontWeight: 'bold',
-                      borderRadius: 'var(--radius-full, 9999px)'
+                      borderRadius: 'var(--radius-full)'
                     }}>
                       {cause.category}
                     </div>
                   </div>
                   
-                  <CardContent sx={{ pb: 1 }}>
-                    <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: 'clamp(16px, 3vw, 20px)', fontWeight: 700, lineHeight: 1.3 }}>
+                  <CardContent sx={{ pb: 1, bgcolor: 'var(--bg-card)' }}>
+                    <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: 'clamp(16px, 3vw, 20px)', fontWeight: 700, lineHeight: 1.3, color: 'var(--text-primary)' }}>
                       {cause.title}
                     </Typography>
-                    
-                    {/* Slim Progress Bar */}
-                    <div style={{ marginTop: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>
-                        <span style={{ color: 'var(--brand-primary, #10b981)' }}>{percent}% Funded</span>
-                      </div>
-                      <div style={{
-                        width: '100%',
-                        height: '6px',
-                        backgroundColor: 'var(--bg-tertiary, #e5e7eb)',
-                        borderRadius: 'var(--radius-full, 9999px)',
-                        overflow: 'hidden'
-                      }}>
-                        <div style={{
-                          width: `${percent}%`,
-                          height: '100%',
-                          backgroundColor: 'var(--brand-primary, #10b981)',
-                          borderRadius: 'var(--radius-full, 9999px)',
-                        }}></div>
-                      </div>
-                    </div>
                   </CardContent>
                   
-                  <CardActions sx={{ p: 2, pt: 0 }}>
+                  <CardActions sx={{ p: 2, pt: 0, bgcolor: 'var(--bg-card)' }}>
                     <Button 
                       variant="contained" 
                       fullWidth 
                       onClick={() => onOpenDonate(cause.title)}
                       sx={{ 
-                        backgroundColor: 'var(--brand-primary, #10b981)', 
+                        backgroundColor: 'var(--brand-primary)', 
                         color: 'white',
                         textTransform: 'none',
                         fontWeight: 600,
                         py: 1,
-                        borderRadius: 'var(--radius-full, 9999px)',
-                        '&:hover': { backgroundColor: 'var(--brand-dark, #059669)' }
+                        borderRadius: 'var(--radius-full)',
+                        '&:hover': { backgroundColor: 'var(--brand-primary-hover, #047857)' }
                       }}
                       startIcon={<Heart size={16} />}
                     >
@@ -141,12 +122,8 @@ export default function Causes({ onOpenDonate }) {
         </Swiper>
 
         <style>{`
-          .swiper-button-next,
-          .swiper-button-prev {
-            color: var(--brand-primary, #10b981) !important;
-          }
           .swiper-pagination-bullet-active {
-            background: var(--brand-primary, #10b981) !important;
+            background: var(--brand-primary) !important;
           }
         `}</style>
       </div>
