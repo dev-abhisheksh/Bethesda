@@ -29,9 +29,7 @@ export default function Hero({ onOpenDonate }) {
               color: 'var(--text-primary)'
             }}>
               Building a World Where <span style={{
-                background: 'linear-gradient(135deg, var(--brand-primary) 0%, #059669 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                color: 'var(--brand-primary)',
               }}>No Destitute Lives</span> in Despair
             </h1>
 
@@ -153,11 +151,11 @@ export default function Hero({ onOpenDonate }) {
                 width: '40px',
                 height: '40px',
                 borderRadius: '12px',
-                backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                backgroundColor: 'var(--brand-light)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#f59e0b'
+                color: 'var(--brand-primary)'
               }}>
                 <Award size={22} />
               </div>

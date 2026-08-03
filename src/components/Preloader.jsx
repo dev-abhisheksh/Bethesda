@@ -93,7 +93,7 @@ export default function Preloader() {
           position: fixed;
           inset: 0;
           z-index: 99999;
-          background: linear-gradient(135deg, #0a0f1d 0%, #111827 50%, #06261c 100%);
+          background: linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0284c7 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -130,7 +130,7 @@ export default function Preloader() {
           position: absolute;
           inset: 0;
           border-radius: 50%;
-          border: 2px solid rgba(16, 185, 129, 0.4);
+          border: 2px solid rgba(56, 189, 248, 0.5);
           animation: pulseExpand 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
         }
         .preloader-pulse-ring.delay-1 {
@@ -140,11 +140,11 @@ export default function Preloader() {
           width: 72px;
           height: 72px;
           border-radius: 22px;
-          background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+          background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 8px 30px rgba(16, 185, 129, 0.45);
+          box-shadow: 0 8px 30px rgba(56, 189, 248, 0.45);
           position: relative;
           z-index: 2;
         }
@@ -162,7 +162,7 @@ export default function Preloader() {
           margin-bottom: 6px;
         }
         .preloader-title span {
-          color: #10b981;
+          color: #38bdf8;
         }
         .preloader-subtitle {
           display: inline-flex;
@@ -170,7 +170,7 @@ export default function Preloader() {
           gap: 6px;
           font-size: 13px;
           font-weight: 600;
-          color: #94a3b8;
+          color: #e0f2fe;
           margin-bottom: 32px;
         }
 
@@ -178,18 +178,18 @@ export default function Preloader() {
         .preloader-bar-track {
           width: 100%;
           height: 6px;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.2);
           border-radius: 9999px;
           overflow: hidden;
           margin-bottom: 14px;
-          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
         }
         .preloader-bar-fill {
           height: 100%;
-          background: linear-gradient(90deg, #059669 0%, #10b981 50%, #6ee7b7 100%);
+          background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #7dd3fc 100%);
           border-radius: 9999px;
           transition: width 0.15s ease-out;
-          box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+          box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
         }
 
         /* Footer Row */
@@ -200,17 +200,17 @@ export default function Preloader() {
           justify-content: space-between;
           font-size: 12px;
           font-weight: 600;
-          color: #cbd5e1;
+          color: #e0f2fe;
         }
         .preloader-quote {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          color: #94a3b8;
+          color: #bae6fd;
         }
         .preloader-percent {
           font-weight: 800;
-          color: #10b981;
+          color: #38bdf8;
           font-family: monospace;
           font-size: 13px;
         }

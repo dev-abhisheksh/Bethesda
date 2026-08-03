@@ -79,8 +79,8 @@ export default function ScrollEnhancements() {
         }
         .scroll-progress-bar {
           height: 100%;
-          background: linear-gradient(90deg, #059669 0%, #10b981 50%, #fbbf24 100%);
-          box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+          background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #7dd3fc 100%);
+          box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
           transition: width 0.1s ease-out;
         }
 

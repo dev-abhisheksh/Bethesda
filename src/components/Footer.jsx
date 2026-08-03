@@ -33,7 +33,7 @@ export default function Footer({ onOpenDonate }) {
                 width: '40px',
                 height: '40px',
                 borderRadius: '10px',
-                background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+                background: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -42,7 +42,7 @@ export default function Footer({ onOpenDonate }) {
                 <Heart size={22} fill="#ffffff" />
               </div>
               <div style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: '800', color: '#ffffff' }}>
-                BETHESDA <span style={{ color: '#10b981' }}>TRUST</span>
+                BETHESDA <span style={{ color: '#3b82f6' }}>TRUST</span>
               </div>
             </div>
 
@@ -51,7 +51,7 @@ export default function Footer({ onOpenDonate }) {
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <span style={{ padding: '4px 12px', borderRadius: 'var(--radius-full)', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#34d399', fontSize: '12px', fontWeight: '700' }}>
+              <span style={{ padding: '4px 12px', borderRadius: 'var(--radius-full)', backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', fontSize: '12px', fontWeight: '700' }}>
                 80G Certified
               </span>
               <span style={{ padding: '4px 12px', borderRadius: 'var(--radius-full)', backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', fontSize: '12px', fontWeight: '700' }}>

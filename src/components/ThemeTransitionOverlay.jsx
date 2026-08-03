@@ -13,20 +13,20 @@ export default function ThemeTransitionOverlay({ active, targetTheme }) {
         {/* Animated Icon Box */}
         <div className="theme-icon-circle">
           {isDarkTarget ? (
-            <Moon size={42} className="theme-anim-icon moon-icon" color="#fbbf24" fill="#fbbf24" />
+            <Moon size={42} className="theme-anim-icon moon-icon" color="#38bdf8" fill="#38bdf8" />
           ) : (
-            <Sun size={44} className="theme-anim-icon sun-icon" color="#f59e0b" fill="#f59e0b" />
+            <Sun size={44} className="theme-anim-icon sun-icon" color="#0284c7" fill="#0284c7" />
           )}
         </div>
 
         {/* Dynamic Label */}
         <h3 className="theme-overlay-title">
-          Switching to {isDarkTarget ? 'Dark' : 'Light'} Mode
+          Switching to {isDarkTarget ? 'Deep Blue' : 'Sky Light'} Mode
         </h3>
 
         <div className="theme-overlay-sub">
-          <Sparkles size={14} style={{ color: isDarkTarget ? '#fbbf24' : '#059669' }} />
-          <span>Adjusting UI Design System...</span>
+          <Sparkles size={14} style={{ color: '#0284c7' }} />
+          <span>Adjusting Light Blue Design System...</span>
         </div>
 
       </div>
@@ -45,13 +45,13 @@ export default function ThemeTransitionOverlay({ active, targetTheme }) {
         }
 
         .theme-overlay.target-dark {
-          background: rgba(10, 15, 29, 0.88);
+          background: rgba(12, 74, 110, 0.92);
           color: #ffffff;
         }
 
         .theme-overlay.target-light {
-          background: rgba(248, 250, 252, 0.88);
-          color: #0f172a;
+          background: rgba(240, 249, 255, 0.94);
+          color: #0369a1;
         }
 
         .theme-overlay-card {
@@ -70,20 +70,20 @@ export default function ThemeTransitionOverlay({ active, targetTheme }) {
           align-items: center;
           justify-content: center;
           margin-bottom: 18px;
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 12px 30px rgba(2, 132, 199, 0.2);
           transition: all 0.3s ease;
         }
 
         .target-dark .theme-icon-circle {
-          background: rgba(31, 41, 55, 0.9);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          box-shadow: 0 0 30px rgba(251, 191, 36, 0.25);
+          background: rgba(7, 89, 133, 0.9);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
         }
 
         .target-light .theme-icon-circle {
           background: #ffffff;
-          border: 1px solid #e2e8f0;
-          box-shadow: 0 10px 25px rgba(245, 158, 11, 0.25);
+          border: 1px solid #bae6fd;
+          box-shadow: 0 10px 25px rgba(2, 132, 199, 0.2);
         }
 
         .theme-anim-icon {
@@ -104,7 +104,7 @@ export default function ThemeTransitionOverlay({ active, targetTheme }) {
           gap: 6px;
           font-size: 13px;
           font-weight: 600;
-          opacity: 0.85;
+          opacity: 0.9;
         }
 
         @keyframes themeOverlayIn {

@@ -113,7 +113,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
       <style>{`
         /* ── Top Banner ── */
         .nav-top-banner {
-          background: linear-gradient(90deg, #059669, #047857);
+          background: linear-gradient(90deg, #0284c7, #0369a1);
           color: #fff; padding: 6px 0; font-size: 12px; font-weight: 500;
         }
         .top-banner-inner {
@@ -124,7 +124,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
         .top-banner-links { display: flex; align-items: center; gap: 14px; }
         .top-banner-links a { display: inline-flex; align-items: center; gap: 4px; color: #fff; }
         .top-banner-links button {
-          color: #6ee7b7; font-weight: 600; text-decoration: underline; font-size: 12px;
+          color: #e0f2fe; font-weight: 600; text-decoration: underline; font-size: 12px;
         }
 
         /* ── Header ── */
@@ -144,9 +144,9 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
         .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
         .nav-logo-icon {
           width: 38px; height: 38px; border-radius: 10px;
-          background: linear-gradient(135deg, #059669, #10b981);
+          background: linear-gradient(135deg, #0284c7, #38bdf8);
           display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 3px 10px rgba(16,185,129,0.3);
+          box-shadow: 0 3px 10px rgba(2,132,199,0.3);
         }
         .nav-logo-title {
           font-family: var(--font-heading); font-size: 17px; font-weight: 800;
