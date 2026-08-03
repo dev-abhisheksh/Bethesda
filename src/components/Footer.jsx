@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from '@mui/material/Card';
 import { Heart, ShieldCheck, ExternalLink, ArrowUp } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
 import { smoothScrollTo } from '../utils/smoothScroll';
@@ -86,7 +87,7 @@ export default function Footer({ onOpenDonate }) {
           </div>
 
           {/* Direct Support Card */}
-          <div style={{
+          <Card sx={{ borderRadius: 4, bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)' }} style={{
             backgroundColor: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: 'var(--radius-lg)',
@@ -104,7 +105,7 @@ export default function Footer({ onOpenDonate }) {
               <Heart size={16} fill="#ffffff" />
               <span>Donate Now</span>
             </button>
-          </div>
+          </Card>
 
         </div>
 

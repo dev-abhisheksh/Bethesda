@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Card from '@mui/material/Card';
 import { X, Heart, ShieldCheck, CheckCircle2, Lock, Printer } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -70,7 +71,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
       padding: '16px',
       overflowY: 'auto'
     }}>
-      <div className="glass-card modal-container" style={{
+      <Card className="modal-container" sx={{ borderRadius: 4, bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)' }} style={{
         backgroundColor: 'var(--bg-secondary)',
         borderRadius: 'var(--radius-xl)',
         maxWidth: '560px',
@@ -300,7 +301,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
               <CheckCircle2 size={32} />
             </div>
 
-            <h2 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '4px', color: 'var(--text-primary)' }}>
+            <h2 style={{ fontSize: 'clamp(14px, 3vw, 24px)', fontWeight: '800', marginBottom: '4px', color: 'var(--text-primary)' }}>
               Thank You, {donor.name}!
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--brand-primary)', fontWeight: '600', marginBottom: '20px' }}>
@@ -331,7 +332,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
               </div>
               <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '14px', fontWeight: '700' }}>Total Contributed:</span>
-                <span style={{ fontSize: '20px', fontWeight: '800', color: 'var(--brand-primary)' }}>{currencySymbols[currency]}{amount}</span>
+                <span style={{ fontSize: 'clamp(14px, 2.5vw, 20px)', fontWeight: '800', color: 'var(--brand-primary)' }}>{currencySymbols[currency]}{amount}</span>
               </div>
             </div>
 
@@ -354,7 +355,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
           </div>
         )}
 
-      </div>
+      </Card>
     </div>
   );
 }

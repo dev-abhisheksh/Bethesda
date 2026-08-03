@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
-import { Quote, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectCards } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
+
+import { Card, CardMedia, CardContent, Typography, Box, Chip } from '@mui/material';
+import { Quote, MapPin } from 'lucide-react';
 import { stories } from '../data/bethesdaData';
 
 export default function Stories() {
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  const current = stories[activeIdx];
-
-  const handleNext = () => {
-    setActiveIdx((prev) => (prev + 1) % stories.length);
-  };
-
-  const handlePrev = () => {
-    setActiveIdx((prev) => (prev - 1 + stories.length) % stories.length);
-  };
-
   return (
     <section id="stories" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="container">
-        
         <div className="section-title-wrap">
           <div className="section-badge">
             💬 Real Lives Changed
           </div>
-          <h2 className="section-heading">
+          <h2 className="section-heading" style={{ fontSize: 'clamp(28px, 5vw, 40px)' }}>
             Stories of Hope & Renewal
           </h2>
           <p className="section-subheading">
@@ -31,135 +27,83 @@ export default function Stories() {
           </p>
         </div>
 
-        {/* Featured Story Slider Card */}
-        <div className="glass-card story-card" style={{
-          padding: '36px',
-          borderRadius: 'var(--radius-xl)',
-          maxWidth: '1000px',
-          margin: '0 auto',
-          position: 'relative',
-        }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(250px, 320px) 1fr',
-            gap: '40px',
-            alignItems: 'center',
-          }} className="story-grid">
-            
-            {/* Story Photo */}
-            <div className="story-img-container" style={{ position: 'relative', height: 'clamp(200px, 35vw, 320px)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
-              <img
-                src={current.image}
-                alt={current.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              <div style={{
-                position: 'absolute',
-                bottom: '16px',
-                left: '16px',
-                padding: '6px 14px',
-                backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                backdropFilter: 'blur(8px)',
-                color: '#ffffff',
-                fontSize: '12px',
-                fontWeight: '700',
-                borderRadius: 'var(--radius-full)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}>
-                <MapPin size={14} style={{ color: 'var(--brand-primary)' }} />
-                <span>{current.location}</span>
-              </div>
-            </div>
+        <Box sx={{ maxWidth: '420px', margin: '0 auto', paddingBottom: '40px' }}>
+          <Swiper
+            effect={'cards'}
+            grabCursor={true}
+            loop={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[EffectCards, Navigation, Pagination, Autoplay]}
+            className="mySwiper"
+          >
+            {stories.map((story, idx) => {
+              const truncatedQuote = story.quote.length > 80 
+                ? story.quote.substring(0, 80) + '...' 
+                : story.quote;
 
-            {/* Story Details & Quote */}
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
-                <span style={{
-                  padding: '4px 12px',
-                  backgroundColor: 'var(--brand-light)',
-                  color: 'var(--brand-primary)',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '13px',
-                  fontWeight: '700'
-                }}>
-                  {current.category}
-                </span>
-                <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '600' }}>
-                  Age: {current.age}
-                </span>
-              </div>
-
-              <div style={{ position: 'relative', marginBottom: '20px' }}>
-                <Quote size={36} style={{ color: 'var(--brand-primary)', opacity: 0.25, position: 'absolute', top: '-6px', left: '-4px' }} />
-                <p style={{
-                  fontSize: 'clamp(18px, 2.5vw, 22px)',
-                  fontWeight: '700',
-                  color: 'var(--text-primary)',
-                  lineHeight: '1.4',
-                  fontStyle: 'italic',
-                  position: 'relative',
-                  zIndex: 1,
-                  paddingLeft: '16px'
-                }}>
-                  "{current.quote}"
-                </p>
-              </div>
-
-              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '24px' }}>
-                {current.storyText}
-              </p>
-
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
-                <div>
-                  <h4 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text-primary)' }}>{current.name}</h4>
-                  <p style={{ fontSize: '13px', color: 'var(--brand-primary)', fontWeight: '600' }}>Beneficiary of Bethesda Trust</p>
-                </div>
-
-                {/* Slider Controls */}
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button
-                    onClick={handlePrev}
-                    aria-label="Previous Story"
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--bg-tertiary)',
-                      color: 'var(--text-primary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: '1px solid var(--border-color)',
-                    }}
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    aria-label="Next Story"
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--brand-primary)',
-                      color: '#ffffff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
+              return (
+                <SwiperSlide key={idx}>
+                  <Card sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: 3 }}>
+                    <CardMedia
+                      component="img"
+                      height="220"
+                      image={story.image}
+                      alt={story.name}
+                      sx={{ objectFit: 'cover' }}
+                    />
+                    <CardContent sx={{ backgroundColor: 'var(--bg-secondary, #fff)', p: 3 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                        <Chip 
+                          label={story.category} 
+                          size="small" 
+                          sx={{ 
+                            backgroundColor: 'var(--brand-light, #e0f2fe)', 
+                            color: 'var(--brand-primary, #0284c7)', 
+                            fontWeight: 'bold' 
+                          }} 
+                        />
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
+                          <MapPin size={14} style={{ color: 'var(--brand-primary, #0284c7)' }} />
+                          <Typography variant="caption" sx={{ fontWeight: 600 }}>{story.location}</Typography>
+                        </Box>
+                      </Box>
+                      
+                      <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1, color: 'var(--text-primary)' }}>
+                        {story.name}
+                      </Typography>
+                      
+                      <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
+                        <Quote size={20} style={{ color: 'var(--brand-primary)', flexShrink: 0, opacity: 0.5, marginTop: '2px' }} />
+                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'var(--text-secondary, #475569)' }}>
+                          "{truncatedQuote}"
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </Box>
       </div>
+
+      <style>{`
+        .mySwiper .swiper-pagination {
+          bottom: -30px !important;
+        }
+        .mySwiper .swiper-pagination-bullet {
+          background-color: var(--brand-primary, #0284c7);
+        }
+        .mySwiper {
+          overflow: visible;
+        }
+      `}</style>
     </section>
   );
 }

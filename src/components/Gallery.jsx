@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Card, CardMedia, Typography, Box } from '@mui/material';
 import { galleryItems } from '../data/bethesdaData';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 export default function Gallery() {
-  const [activeFilter, setActiveFilter] = useState('All');
-
-  const categories = ['All', 'Healthcare', 'Education', 'Relief', 'Elder Care', 'Empowerment'];
-
-  const items = activeFilter === 'All'
-    ? galleryItems
-    : galleryItems.filter(item => item.category === activeFilter);
-
   return (
     <section id="gallery" className="section" style={{ backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
       <div className="container">
@@ -26,75 +25,81 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '40px' }}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              style={{
-                padding: '8px 18px',
-                borderRadius: 'var(--radius-full)',
-                fontSize: '14px',
-                fontWeight: '600',
-                backgroundColor: activeFilter === cat ? 'var(--brand-primary)' : 'var(--bg-tertiary)',
-                color: activeFilter === cat ? '#ffffff' : 'var(--text-secondary)',
-                border: '1px solid var(--border-color)'
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Gallery Grid */}
-        <div className="grid-3">
-          {items.map((item, idx) => (
-            <div
-              key={idx}
-              className="glass-card gallery-item"
-              style={{
-                borderRadius: 'var(--radius-lg)',
-                overflow: 'hidden',
-                position: 'relative',
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          slidesPerView={1}
+          spaceBetween={20}
+          loop={true}
+          autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
+          pagination={{ clickable: true }}
+          navigation={true}
+          breakpoints={{
+            480: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 }
+          }}
+          style={{ paddingBottom: '40px' }}
+          className="gallery-swiper"
+        >
+          {galleryItems.map((item, idx) => (
+            <SwiperSlide key={idx}>
+              <Card sx={{ 
+                borderRadius: 'var(--radius-lg)', 
+                overflow: 'hidden', 
+                position: 'relative', 
                 height: 'clamp(180px, 30vw, 260px)',
                 boxShadow: 'var(--shadow-md)'
-              }}
-            >
-              <img
-                src={item.img}
-                alt={item.title}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  transition: 'transform 0.5s ease',
-                }}
-                onMouseEnter={(e) => e.target.style.transform = 'scale(1.08)'}
-                onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-              />
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, transparent 60%)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                padding: '20px',
-                color: '#ffffff'
               }}>
-                <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--brand-accent)', textTransform: 'uppercase' }}>
-                  {item.category}
-                </span>
-                <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#ffffff' }}>
-                  {item.title}
-                </h4>
-              </div>
-            </div>
+                <CardMedia
+                  component="img"
+                  height="100%"
+                  image={item.img}
+                  alt={item.title}
+                  sx={{
+                    transition: 'transform 0.5s ease',
+                    '&:hover': { transform: 'scale(1.08)' },
+                    objectFit: 'cover'
+                  }}
+                />
+                <Box sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, transparent 100%)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  padding: '20px',
+                  paddingTop: '60px',
+                  color: '#ffffff'
+                }}>
+                  <Typography variant="caption" sx={{ fontWeight: '700', color: 'var(--brand-accent)', textTransform: 'uppercase', mb: 0.5 }}>
+                    {item.category}
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontSize: 'clamp(14px, 4vw, 18px)', fontWeight: '700', color: '#ffffff', lineHeight: 1.2 }}>
+                    {item.title}
+                  </Typography>
+                </Box>
+              </Card>
+            </SwiperSlide>
           ))}
-        </div>
-
+        </Swiper>
       </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .gallery-swiper .swiper-pagination-bullet {
+          background: var(--text-secondary);
+        }
+        .gallery-swiper .swiper-pagination-bullet-active {
+          background: var(--brand-primary);
+        }
+        .gallery-swiper .swiper-button-next,
+        .gallery-swiper .swiper-button-prev {
+          color: var(--brand-primary);
+          transform: scale(0.7);
+        }
+      `}} />
     </section>
   );
 }

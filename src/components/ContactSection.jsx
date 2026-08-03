@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, Shield } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 export default function ContactSection() {
   const [formSent, setFormSent] = useState(false);
@@ -78,7 +80,8 @@ export default function ContactSection() {
             </div>
 
             {/* Newsletter Box */}
-            <div className="glass-card" style={{ padding: '24px', borderRadius: 'var(--radius-lg)' }}>
+            <Card sx={{ borderRadius: 4, p: '24px', bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-md)' }}>
+              <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
               <h4 style={{ fontSize: 'clamp(16px, 3vw, 18px)', fontWeight: '700', marginBottom: '6px' }}>Subscribe to Field Updates</h4>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '16px' }}>
                 Receive monthly impact reports and photos directly in your inbox. No spam.
@@ -102,12 +105,14 @@ export default function ContactSection() {
                   ✓ Thank you! You're subscribed to quarterly field updates.
                 </div>
               )}
-            </div>
+              </CardContent>
+            </Card>
 
           </div>
 
           {/* Right Column Contact Form */}
-          <div className="glass-card" style={{ padding: '36px', borderRadius: 'var(--radius-xl)' }}>
+          <Card sx={{ borderRadius: 4, p: '36px', bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-md)' }}>
+            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
             {!formSent ? (
               <form onSubmit={handleFormSubmit}>
                 <h3 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: '800', marginBottom: '6px' }}>Send Us a Message</h3>
@@ -177,7 +182,8 @@ export default function ContactSection() {
                 </button>
               </div>
             )}
-          </div>
+            </CardContent>
+          </Card>
 
         </div>
 

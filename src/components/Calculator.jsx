@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Calculator as CalcIcon, Heart, Sparkles, CheckCircle } from 'lucide-react';
 import { impactCalculatorTiers } from '../data/bethesdaData';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 export default function Calculator({ onOpenDonate }) {
   const [selectedAmount, setSelectedAmount] = useState(60);
@@ -58,7 +60,8 @@ export default function Calculator({ onOpenDonate }) {
           </div>
 
           {/* Right Column Interactive Slider Card */}
-          <div className="glass-card" style={{ padding: '32px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-lg)' }}>
+          <Card sx={{ borderRadius: 4, p: 4, bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-lg)' }}>
+            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
             
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -140,7 +143,8 @@ export default function Calculator({ onOpenDonate }) {
               <span>Donate ${selectedAmount} & Make This Impact</span>
             </button>
 
-          </div>
+            </CardContent>
+          </Card>
 
         </div>
 

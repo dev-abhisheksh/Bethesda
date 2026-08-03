@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Users, Heart, CheckCircle2, Send, Clock, Globe } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 export default function VolunteerSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -75,7 +77,8 @@ export default function VolunteerSection() {
           </div>
 
           {/* Right Form Card */}
-          <div className="glass-card" style={{ padding: '36px', borderRadius: 'var(--radius-xl)' }}>
+          <Card sx={{ borderRadius: 4, p: '36px', bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-md)' }}>
+            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
             {!submitted ? (
               <form onSubmit={handleSubmit}>
                 <h3 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: '800', marginBottom: '6px' }}>Volunteer Application</h3>
@@ -183,7 +186,8 @@ export default function VolunteerSection() {
                 </button>
               </div>
             )}
-          </div>
+            </CardContent>
+          </Card>
 
         </div>
 

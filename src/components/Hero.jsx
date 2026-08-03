@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from '@mui/material/Card';
 import { Heart, ArrowRight, ShieldCheck, Award, Users, CheckCircle2 } from 'lucide-react';
 import { heroData } from '../data/bethesdaData';
 
@@ -85,7 +86,7 @@ export default function Hero({ onOpenDonate }) {
           <div style={{ position: 'relative' }}>
             
             {/* Main Featured Image Card */}
-            <div className="glass-card" style={{
+            <Card sx={{ borderRadius: 4, bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)' }} style={{
               padding: '10px',
               borderRadius: 'var(--radius-xl)',
               overflow: 'hidden',
@@ -134,10 +135,10 @@ export default function Hero({ onOpenDonate }) {
                   76% Raised
                 </div>
               </div>
-            </div>
+            </Card>
 
             {/* Floating Stat Badge top-right */}
-            <div className="glass-card hero-floating-stat" style={{
+            <Card className="hero-floating-stat" sx={{ borderRadius: 4, bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)' }} style={{
               position: 'absolute',
               top: '-16px',
               right: '-16px',
@@ -161,13 +162,13 @@ export default function Hero({ onOpenDonate }) {
                 <Award size={22} />
               </div>
               <div>
-                <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text-primary)' }}>85,000+</div>
+                <div style={{ fontSize: 'clamp(14px, 2vw, 18px)', fontWeight: '800', color: 'var(--text-primary)' }}>85,000+</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600' }}>Lives Impacted</div>
               </div>
-            </div>
+            </Card>
 
             {/* Floating Donor Trust Badge bottom-left */}
-            <div className="glass-card hero-floating-trust" style={{
+            <Card className="hero-floating-trust" sx={{ borderRadius: 4, bgcolor: 'var(--bg-card)', border: '1px solid var(--border-glass)' }} style={{
               position: 'absolute',
               bottom: '-16px',
               left: '-16px',
@@ -194,7 +195,7 @@ export default function Hero({ onOpenDonate }) {
                 <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-primary)' }}>25,000+ Global Donors</div>
                 <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Verified Non-Profit Trust</div>
               </div>
-            </div>
+            </Card>
 
           </div>
 

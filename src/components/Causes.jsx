@@ -1,199 +1,156 @@
-import React, { useState } from 'react';
-import { Heart, Users, Target, ArrowUpRight } from 'lucide-react';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
+import { Card, CardMedia, CardContent, CardActions, Button, Typography } from '@mui/material';
 import { causes } from '../data/bethesdaData';
+import { Heart } from 'lucide-react';
 
 export default function Causes({ onOpenDonate }) {
-  const [activeCategory, setActiveCategory] = useState('All');
-
-  const categories = ['All', 'Education', 'Elder Care', 'Healthcare', 'Food Security', 'Empowerment'];
-
-  const filteredCauses = activeCategory === 'All'
-    ? causes
-    : causes.filter(c => c.category === activeCategory);
-
   return (
-    <section id="causes" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="causes" className="section causes-section" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="container">
         
         <div className="section-title-wrap">
           <div className="section-badge">
             🤝 Urgent Humanitarian Causes
           </div>
-          <h2 className="section-heading">
+          <h2 className="section-heading" style={{ fontSize: 'clamp(24px, 5vw, 36px)' }}>
             Choose a Cause & Directly Impact a Life Today
           </h2>
-          <p className="section-subheading">
+          <p className="section-subheading" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)' }}>
             Your generous contributions fund transparent, audited programs with real-time updates and measurable outcomes.
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '12px',
-          flexWrap: 'wrap',
-          marginBottom: '48px',
-        }}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                padding: '10px 20px',
-                borderRadius: 'var(--radius-full)',
-                fontSize: '15px',
-                fontWeight: '600',
-                backgroundColor: activeCategory === cat ? 'var(--brand-primary)' : 'var(--bg-card)',
-                color: activeCategory === cat ? '#ffffff' : 'var(--text-secondary)',
-                border: activeCategory === cat ? '1px solid var(--brand-primary)' : '1px solid var(--border-color)',
-                boxShadow: activeCategory === cat ? '0 4px 12px rgba(5, 150, 105, 0.25)' : 'none',
-                transition: 'var(--transition)'
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Cause Cards Grid */}
-        <div className="grid-3">
-          {filteredCauses.map((cause) => {
+        <Swiper
+          effect="coverflow"
+          slidesPerView={1}
+          spaceBetween={24}
+          centeredSlides={true}
+          loop={true}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          pagination={{ clickable: true }}
+          navigation={true}
+          modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+          coverflowEffect={{
+            rotate: 30,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          breakpoints={{
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+          }}
+          style={{ padding: '20px 0 60px' }}
+        >
+          {causes.map((cause) => {
             const percent = Math.min(100, Math.round((cause.raised / cause.goal) * 100));
 
             return (
-              <div
-                key={cause.id}
-                className="glass-card"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderRadius: 'var(--radius-xl)',
-                  overflow: 'hidden',
-                }}
-              >
-                {/* Cause Image & Urgency Badge */}
-                <div className="cause-img" style={{ position: 'relative', height: 'clamp(170px, 28vw, 220px)', overflow: 'hidden' }}>
-                  <img
-                    src={cause.image}
-                    alt={cause.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'transform 0.5s ease',
-                    }}
-                    onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-                    onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                  />
-                  <div style={{
-                    position: 'absolute',
-                    top: '16px',
-                    left: '16px',
-                    padding: '6px 14px',
-                    background: 'rgba(15, 23, 42, 0.8)',
-                    backdropFilter: 'blur(8px)',
-                    color: '#ffffff',
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    borderRadius: 'var(--radius-full)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b' }}></span>
-                    {cause.urgency}
+              <SwiperSlide key={cause.id}>
+                <Card 
+                  className="cause-card"
+                  sx={{ 
+                    maxWidth: 'none', 
+                    borderRadius: 4, 
+                    overflow: 'hidden', 
+                    transition: '0.3s', 
+                    '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 } 
+                  }}
+                >
+                  <div style={{ position: 'relative' }}>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: 'clamp(150px, 30vw, 200px)' }}
+                      image={cause.image}
+                      alt={cause.title}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: '12px',
+                      right: '12px',
+                      padding: '4px 12px',
+                      background: 'var(--brand-light, #ecfdf5)',
+                      color: 'var(--brand-primary, #10b981)',
+                      fontSize: '12px',
+                      fontWeight: 'bold',
+                      borderRadius: 'var(--radius-full, 9999px)'
+                    }}>
+                      {cause.category}
+                    </div>
                   </div>
-                  <div style={{
-                    position: 'absolute',
-                    top: '16px',
-                    right: '16px',
-                    padding: '6px 14px',
-                    background: 'var(--brand-light)',
-                    color: 'var(--brand-primary)',
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    borderRadius: 'var(--radius-full)'
-                  }}>
-                    {cause.category}
-                  </div>
-                </div>
-
-                {/* Card Content */}
-                <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <h3 style={{ fontSize: 'clamp(16px, 2.5vw, 20px)', fontWeight: '700', marginBottom: '12px', lineHeight: '1.3' }}>
+                  
+                  <CardContent sx={{ pb: 1 }}>
+                    <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: 'clamp(16px, 3vw, 20px)', fontWeight: 700, lineHeight: 1.3 }}>
                       {cause.title}
-                    </h3>
-                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: '1.5' }}>
-                      {cause.shortDesc}
-                    </p>
-
-                    {/* Progress Bar */}
-                    <div style={{ marginBottom: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: '700', marginBottom: '6px' }}>
-                        <span style={{ color: 'var(--brand-primary)' }}>{percent}% Funded</span>
-                        <span style={{ color: 'var(--text-muted)' }}>Goal: ${cause.goal.toLocaleString()}</span>
+                    </Typography>
+                    
+                    {/* Slim Progress Bar */}
+                    <div style={{ marginTop: '16px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>
+                        <span style={{ color: 'var(--brand-primary, #10b981)' }}>{percent}% Funded</span>
                       </div>
                       <div style={{
                         width: '100%',
-                        height: '10px',
-                        backgroundColor: 'var(--bg-tertiary)',
-                        borderRadius: 'var(--radius-full)',
+                        height: '6px',
+                        backgroundColor: 'var(--bg-tertiary, #e5e7eb)',
+                        borderRadius: 'var(--radius-full, 9999px)',
                         overflow: 'hidden'
                       }}>
                         <div style={{
                           width: `${percent}%`,
                           height: '100%',
-                          background: 'linear-gradient(90deg, #059669 0%, #10b981 100%)',
-                          borderRadius: 'var(--radius-full)',
-                          transition: 'width 1s ease-in-out'
+                          backgroundColor: 'var(--brand-primary, #10b981)',
+                          borderRadius: 'var(--radius-full, 9999px)',
                         }}></div>
                       </div>
                     </div>
-
-                    {/* Stats Row */}
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '12px 16px',
-                      backgroundColor: 'var(--bg-tertiary)',
-                      borderRadius: 'var(--radius-md)',
-                      fontSize: '13px',
-                      marginBottom: '20px'
-                    }}>
-                      <div>
-                        <span style={{ color: 'var(--text-muted)' }}>Raised: </span>
-                        <strong style={{ color: 'var(--text-primary)', fontSize: '15px' }}>${cause.raised.toLocaleString()}</strong>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-muted)' }}>
-                        <Users size={14} />
-                        <span><strong>{cause.donors}</strong> Donors</span>
-                      </div>
-                    </div>
-
-                    <div style={{ fontSize: '13px', color: 'var(--brand-primary)', fontWeight: '600', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Target size={15} />
-                      <span>{cause.impactPoint}</span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onOpenDonate(cause.title)}
-                    className="btn btn-primary"
-                    style={{ width: '100%', padding: '14px', fontSize: '15px' }}
-                  >
-                    <Heart size={18} fill="#ffffff" />
-                    <span>Support This Cause</span>
-                  </button>
-                </div>
-              </div>
+                  </CardContent>
+                  
+                  <CardActions sx={{ p: 2, pt: 0 }}>
+                    <Button 
+                      variant="contained" 
+                      fullWidth 
+                      onClick={() => onOpenDonate(cause.title)}
+                      sx={{ 
+                        backgroundColor: 'var(--brand-primary, #10b981)', 
+                        color: 'white',
+                        textTransform: 'none',
+                        fontWeight: 600,
+                        py: 1,
+                        borderRadius: 'var(--radius-full, 9999px)',
+                        '&:hover': { backgroundColor: 'var(--brand-dark, #059669)' }
+                      }}
+                      startIcon={<Heart size={16} />}
+                    >
+                      Support
+                    </Button>
+                  </CardActions>
+                </Card>
+              </SwiperSlide>
             );
           })}
-        </div>
+        </Swiper>
 
+        <style>{`
+          .swiper-button-next,
+          .swiper-button-prev {
+            color: var(--brand-primary, #10b981) !important;
+          }
+          .swiper-pagination-bullet-active {
+            background: var(--brand-primary, #10b981) !important;
+          }
+        `}</style>
       </div>
     </section>
   );
