@@ -78,7 +78,7 @@ export default function VolunteerSection() {
           <div className="glass-card" style={{ padding: '36px', borderRadius: 'var(--radius-xl)' }}>
             {!submitted ? (
               <form onSubmit={handleSubmit}>
-                <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px' }}>Volunteer Application</h3>
+                <h3 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: '800', marginBottom: '6px' }}>Volunteer Application</h3>
                 <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '24px' }}>Fill out your details and our team will get in touch within 24 hours.</p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
@@ -94,8 +94,8 @@ export default function VolunteerSection() {
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    <div>
+                  <div className="form-flex-group" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                    <div style={{ flex: '1 1 250px', minWidth: 0 }}>
                       <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--text-secondary)' }}>Email Address *</label>
                       <input
                         type="email"
@@ -106,7 +106,7 @@ export default function VolunteerSection() {
                         style={{ width: '100%', padding: '12px 16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
                       />
                     </div>
-                    <div>
+                    <div style={{ flex: '1 1 250px', minWidth: 0 }}>
                       <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--text-secondary)' }}>Phone Number</label>
                       <input
                         type="tel"
@@ -118,8 +118,8 @@ export default function VolunteerSection() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                    <div>
+                  <div className="form-flex-group" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                    <div style={{ flex: '1 1 250px', minWidth: 0 }}>
                       <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--text-secondary)' }}>Preferred Field</label>
                       <select
                         value={formData.role}
@@ -133,7 +133,7 @@ export default function VolunteerSection() {
                         <option>Digital Marketing & Tech</option>
                       </select>
                     </div>
-                    <div>
+                    <div style={{ flex: '1 1 250px', minWidth: 0 }}>
                       <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', marginBottom: '6px', color: 'var(--text-secondary)' }}>Availability</label>
                       <select
                         value={formData.availability}
@@ -174,7 +174,7 @@ export default function VolunteerSection() {
                 <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: 'var(--brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto' }}>
                   <CheckCircle2 size={32} />
                 </div>
-                <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px' }}>Application Received!</h3>
+                <h3 style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontWeight: '800', marginBottom: '8px' }}>Application Received!</h3>
                 <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
                   Thank you, <strong>{formData.name}</strong>. Our volunteer coordinator will reach out to you via email within 24 hours.
                 </p>

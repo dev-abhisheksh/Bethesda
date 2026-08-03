@@ -48,7 +48,7 @@ export default function Hero({ onOpenDonate }) {
               <button
                 onClick={() => onOpenDonate()}
                 className="btn btn-accent"
-                style={{ padding: '16px 36px', fontSize: '17px' }}
+                style={{ padding: '14px 28px', fontSize: '15px' }}
               >
                 <Heart size={20} fill="#ffffff" />
                 <span>{heroData.primaryCTA}</span>
@@ -57,7 +57,7 @@ export default function Hero({ onOpenDonate }) {
               <a
                 href="#causes"
                 className="btn btn-outline"
-                style={{ padding: '16px 32px', fontSize: '17px' }}
+                style={{ padding: '14px 28px', fontSize: '15px' }}
               >
                 <span>{heroData.secondaryCTA}</span>
                 <ArrowRight size={18} />

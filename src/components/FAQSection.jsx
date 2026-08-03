@@ -51,7 +51,7 @@ export default function FAQSection() {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <HelpCircle size={20} style={{ color: 'var(--brand-primary)', flexShrink: 0 }} />
-                  <span style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-primary)' }}>
+                  <span style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text-primary)' }}>
                     {item.q}
                   </span>
                 </div>

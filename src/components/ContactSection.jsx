@@ -79,19 +79,19 @@ export default function ContactSection() {
 
             {/* Newsletter Box */}
             <div className="glass-card" style={{ padding: '24px', borderRadius: 'var(--radius-lg)' }}>
-              <h4 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '6px' }}>Subscribe to Field Updates</h4>
+              <h4 style={{ fontSize: 'clamp(16px, 3vw, 18px)', fontWeight: '700', marginBottom: '6px' }}>Subscribe to Field Updates</h4>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '16px' }}>
                 Receive monthly impact reports and photos directly in your inbox. No spam.
               </p>
               {!newsletterSent ? (
-                <form onSubmit={handleNewsletter} style={{ display: 'flex', gap: '8px' }}>
+                <form onSubmit={handleNewsletter} className="newsletter-form" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   <input
                     type="email"
                     required
                     placeholder="Enter your email address..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    style={{ flex: 1, padding: '10px 14px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+                    style={{ flex: '1 1 200px', minWidth: 0, padding: '10px 14px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
                   />
                   <button type="submit" className="btn btn-primary" style={{ padding: '10px 18px', fontSize: '14px' }}>
                     Subscribe
@@ -110,7 +110,7 @@ export default function ContactSection() {
           <div className="glass-card" style={{ padding: '36px', borderRadius: 'var(--radius-xl)' }}>
             {!formSent ? (
               <form onSubmit={handleFormSubmit}>
-                <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px' }}>Send Us a Message</h3>
+                <h3 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: '800', marginBottom: '6px' }}>Send Us a Message</h3>
                 <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '24px' }}>We typically respond to inquiries within 4-6 hours.</p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
@@ -168,7 +168,7 @@ export default function ContactSection() {
                 <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: 'var(--brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto' }}>
                   <CheckCircle2 size={32} />
                 </div>
-                <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px' }}>Message Sent!</h3>
+                <h3 style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontWeight: '800', marginBottom: '8px' }}>Message Sent!</h3>
                 <p style={{ fontSize: '15px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
                   Thank you for reaching out to Bethesda Charitable Trust. Our team will get back to you shortly.
                 </p>

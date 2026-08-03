@@ -125,7 +125,7 @@ export default function Calculator({ onOpenDonate }) {
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--brand-primary)', fontWeight: '700', fontSize: '13px', textTransform: 'uppercase', marginBottom: '8px' }}>
                 <Sparkles size={16} /> Real-World Impact Result
               </div>
-              <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text-primary)', lineHeight: '1.3' }}>
+              <div style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', fontWeight: '800', color: 'var(--text-primary)', lineHeight: '1.3' }}>
                 {currentTier.impact}
               </div>
             </div>

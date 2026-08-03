@@ -41,13 +41,13 @@ export default function Stories() {
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '320px 1fr',
+            gridTemplateColumns: 'minmax(250px, 320px) 1fr',
             gap: '40px',
             alignItems: 'center',
           }} className="story-grid">
             
             {/* Story Photo */}
-            <div className="story-img-container" style={{ position: 'relative', height: '320px', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+            <div className="story-img-container" style={{ position: 'relative', height: 'clamp(200px, 35vw, 320px)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
               <img
                 src={current.image}
                 alt={current.name}
@@ -92,7 +92,7 @@ export default function Stories() {
               </div>
 
               <div style={{ position: 'relative', marginBottom: '20px' }}>
-                <Quote size={36} style={{ color: 'var(--brand-primary)', opacity: 0.25, position: 'absolute', top: '-10px', left: '-10px' }} />
+                <Quote size={36} style={{ color: 'var(--brand-primary)', opacity: 0.25, position: 'absolute', top: '-6px', left: '-4px' }} />
                 <p style={{
                   fontSize: 'clamp(18px, 2.5vw, 22px)',
                   fontWeight: '700',

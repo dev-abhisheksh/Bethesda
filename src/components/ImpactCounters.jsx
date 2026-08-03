@@ -56,7 +56,7 @@ export default function ImpactCounters() {
               {/* Counter Value */}
               <div style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: '38px',
+                fontSize: 'clamp(28px, 5vw, 38px)',
                 fontWeight: '800',
                 color: 'var(--text-primary)',
                 marginBottom: '4px',

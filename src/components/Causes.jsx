@@ -74,7 +74,7 @@ export default function Causes({ onOpenDonate }) {
                 }}
               >
                 {/* Cause Image & Urgency Badge */}
-                <div style={{ position: 'relative', height: '220px', overflow: 'hidden' }}>
+                <div className="cause-img" style={{ position: 'relative', height: 'clamp(170px, 28vw, 220px)', overflow: 'hidden' }}>
                   <img
                     src={cause.image}
                     alt={cause.title}
@@ -123,7 +123,7 @@ export default function Causes({ onOpenDonate }) {
                 {/* Card Content */}
                 <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', lineHeight: '1.3' }}>
+                    <h3 style={{ fontSize: 'clamp(16px, 2.5vw, 20px)', fontWeight: '700', marginBottom: '12px', lineHeight: '1.3' }}>
                       {cause.title}
                     </h3>
                     <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: '1.5' }}>

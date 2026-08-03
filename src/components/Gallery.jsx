@@ -52,12 +52,12 @@ export default function Gallery() {
           {items.map((item, idx) => (
             <div
               key={idx}
-              className="glass-card"
+              className="glass-card gallery-item"
               style={{
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',
                 position: 'relative',
-                height: '260px',
+                height: 'clamp(180px, 30vw, 260px)',
                 boxShadow: 'var(--shadow-md)'
               }}
             >

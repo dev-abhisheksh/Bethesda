@@ -7,20 +7,15 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent background scrolling when mobile drawer is open
+  // Lock body scroll when drawer is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
   const navLinks = [
@@ -34,241 +29,209 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
     { name: 'Contact', href: '#contact' },
   ];
 
+  const closeMobile = () => setMobileMenuOpen(false);
+
   return (
     <>
-      {/* Top Announcement & Emergency Banner */}
-      <div style={{
-        background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
-        color: '#ffffff',
-        padding: '8px 16px',
-        fontSize: '13px',
-        fontWeight: '500',
-      }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <ShieldCheck size={16} style={{ color: '#6ee7b7' }} />
-            <span><strong>100% Tax Deductible (Section 80G & 12A Certified)</strong></span>
+      {/* ── Top Banner ── */}
+      <div className="nav-top-banner">
+        <div className="container top-banner-inner">
+          <div className="top-banner-left">
+            <ShieldCheck size={15} color="#6ee7b7" />
+            <span><strong>100% Tax Deductible</strong> · 80G & 12A</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }} className="top-banner-links">
-            <a href={`tel:${trustInfo.contact.phone}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#ffffff' }}>
-              <Phone size={14} /> {trustInfo.contact.phone}
+          <div className="top-banner-links">
+            <a href={`tel:${trustInfo.contact.phone}`}>
+              <Phone size={13} /> {trustInfo.contact.phone}
             </a>
-            <button onClick={onOpenVolunteer} style={{ color: '#6ee7b7', fontWeight: '600', textDecoration: 'underline', fontSize: '13px' }}>
-              Become a Volunteer →
+            <button onClick={onOpenVolunteer}>Volunteer →</button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Main Header ── */}
+      <header className={`nav-header ${isScrolled ? 'nav-scrolled' : ''}`}>
+        <div className="container nav-row">
+          {/* Logo */}
+          <a href="#hero" className="nav-logo">
+            <div className="nav-logo-icon">
+              <Heart size={20} fill="#fff" />
+            </div>
+            <div className="nav-logo-text">
+              <span className="nav-logo-title">BETHESDA <em>TRUST</em></span>
+              <span className="nav-logo-sub">Charitable Non-Profit</span>
+            </div>
+          </a>
+
+          {/* Desktop Links */}
+          <nav className="nav-desktop">
+            {navLinks.map((l) => (
+              <a key={l.name} href={l.href} className="nav-link">{l.name}</a>
+            ))}
+          </nav>
+
+          {/* Actions */}
+          <div className="nav-actions">
+            <button onClick={toggleTheme} className="nav-theme-btn" aria-label="Toggle theme">
+              {theme === 'dark' ? <Sun size={18} color="#fbbf24" /> : <Moon size={18} />}
+            </button>
+            <button onClick={() => onOpenDonate()} className="btn btn-accent nav-donate-btn">
+              <Heart size={15} fill="#fff" /> Donate
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="nav-hamburger"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* ── Mobile Drawer ── */}
+      <div className={`nav-overlay ${mobileMenuOpen ? 'nav-overlay-open' : ''}`} onClick={closeMobile}>
+        <div className={`nav-drawer ${mobileMenuOpen ? 'nav-drawer-open' : ''}`} onClick={e => e.stopPropagation()}>
+          <div className="nav-drawer-label">Navigation</div>
+          {navLinks.map((l) => (
+            <a key={l.name} href={l.href} className="nav-drawer-link" onClick={closeMobile}>
+              <span>{l.name}</span>
+              <ChevronRight size={16} color="var(--brand-primary)" />
+            </a>
+          ))}
+          <div className="nav-drawer-actions">
+            <button onClick={() => { closeMobile(); onOpenDonate(); }} className="btn btn-accent" style={{ width: '100%' }}>
+              <Heart size={16} fill="#fff" /> Donate Now
+            </button>
+            <button onClick={() => { closeMobile(); onOpenVolunteer(); }} className="btn btn-outline" style={{ width: '100%' }}>
+              <Users size={16} /> Join as Volunteer
             </button>
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <header style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        backgroundColor: isScrolled ? 'var(--bg-glass)' : 'var(--bg-primary)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: isScrolled ? '1px solid var(--border-glass)' : '1px solid transparent',
-        transition: 'var(--transition)',
-        padding: isScrolled ? '12px 0' : '16px 0',
-      }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          
-          {/* Brand Logo */}
-          <a href="#hero" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
-              color: '#ffffff'
-            }}>
-              <Heart size={22} fill="#ffffff" />
-            </div>
-            <div>
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '19px', fontWeight: '800', letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
-                BETHESDA <span style={{ color: 'var(--brand-primary)' }}>TRUST</span>
-              </div>
-              <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Charitable Non-Profit
-              </div>
-            </div>
-          </a>
-
-          {/* Desktop Nav Links */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }} className="desktop-nav">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                style={{
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  color: 'var(--text-secondary)',
-                  transition: 'var(--transition)',
-                }}
-                onMouseEnter={(e) => e.target.style.color = 'var(--brand-primary)'}
-                onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Actions & Theme Toggle */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle Theme"
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                backgroundColor: 'var(--bg-tertiary)',
-                color: 'var(--text-primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid var(--border-color)'
-              }}
-            >
-              {theme === 'dark' ? <Sun size={20} style={{ color: '#fbbf24' }} /> : <Moon size={20} />}
-            </button>
-
-            {/* Desktop Donate Button */}
-            <button
-              onClick={() => onOpenDonate()}
-              className="btn btn-accent desktop-donate-btn"
-              style={{ padding: '10px 20px', fontSize: '14px' }}
-            >
-              <Heart size={16} fill="#ffffff" />
-              <span>Donate Now</span>
-            </button>
-
-            {/* Mobile Hamburger Toggle Bar */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="mobile-toggle"
-              aria-label="Toggle Navigation Menu"
-              style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '12px',
-                backgroundColor: mobileMenuOpen ? 'var(--brand-primary)' : 'var(--bg-tertiary)',
-                color: mobileMenuOpen ? '#ffffff' : 'var(--text-primary)',
-                display: 'none',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid var(--border-color)',
-                transition: 'var(--transition)',
-              }}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Slide-Down Drawer Overlay */}
-        {mobileMenuOpen && (
-          <div style={{
-            position: 'fixed',
-            top: '70px',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.6)',
-            backdropFilter: 'blur(8px)',
-            zIndex: 999,
-          }} onClick={() => setMobileMenuOpen(false)}>
-            <div
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                borderBottom: '1px solid var(--border-color)',
-                boxShadow: 'var(--shadow-lg)',
-                padding: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
-                maxHeight: 'calc(100vh - 80px)',
-                overflowY: 'auto',
-                animation: 'slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-            >
-              <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
-                Navigation Menu
-              </div>
-
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    fontSize: '17px',
-                    fontWeight: '700',
-                    color: 'var(--text-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '12px 16px',
-                    borderRadius: 'var(--radius-md)',
-                    backgroundColor: 'var(--bg-tertiary)',
-                    transition: 'var(--transition)'
-                  }}
-                >
-                  <span>{link.name}</span>
-                  <ChevronRight size={18} style={{ color: 'var(--brand-primary)' }} />
-                </a>
-              ))}
-
-              {/* Mobile Drawer Quick Action Buttons */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border-color)' }}>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenDonate();
-                  }}
-                  className="btn btn-accent"
-                  style={{ width: '100%', padding: '14px', fontSize: '16px' }}
-                >
-                  <Heart size={18} fill="#ffffff" />
-                  <span>Donate Now (Tax Relief)</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenVolunteer();
-                  }}
-                  className="btn btn-outline"
-                  style={{ width: '100%', padding: '14px', fontSize: '15px' }}
-                >
-                  <Users size={18} />
-                  <span>Join as Volunteer</span>
-                </button>
-              </div>
-
-            </div>
-          </div>
-        )}
-      </header>
-
       <style>{`
-        @keyframes slideDown {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
+        /* ── Top Banner ── */
+        .nav-top-banner {
+          background: linear-gradient(90deg, #059669, #047857);
+          color: #fff; padding: 6px 0; font-size: 12px; font-weight: 500;
         }
+        .top-banner-inner {
+          display: flex; justify-content: space-between; align-items: center;
+          flex-wrap: wrap; gap: 6px;
+        }
+        .top-banner-left { display: flex; align-items: center; gap: 6px; }
+        .top-banner-links { display: flex; align-items: center; gap: 14px; }
+        .top-banner-links a { display: inline-flex; align-items: center; gap: 4px; color: #fff; }
+        .top-banner-links button {
+          color: #6ee7b7; font-weight: 600; text-decoration: underline; font-size: 12px;
+        }
+
+        /* ── Header ── */
+        .nav-header {
+          position: sticky; top: 0; z-index: 200;
+          background: var(--bg-primary); backdrop-filter: blur(16px);
+          border-bottom: 1px solid transparent;
+          padding: 14px 0; transition: var(--transition);
+        }
+        .nav-header.nav-scrolled {
+          background: var(--bg-glass); border-bottom-color: var(--border-glass);
+          padding: 10px 0;
+        }
+        .nav-row { display: flex; align-items: center; justify-content: space-between; }
+
+        /* Logo */
+        .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .nav-logo-icon {
+          width: 38px; height: 38px; border-radius: 10px;
+          background: linear-gradient(135deg, #059669, #10b981);
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 3px 10px rgba(16,185,129,0.3);
+        }
+        .nav-logo-title {
+          font-family: var(--font-heading); font-size: 17px; font-weight: 800;
+          letter-spacing: -0.02em; color: var(--text-primary);
+        }
+        .nav-logo-title em { font-style: normal; color: var(--brand-primary); }
+        .nav-logo-sub {
+          display: block; font-size: 10px; color: var(--text-muted);
+          font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+
+        /* Desktop Nav */
+        .nav-desktop { display: flex; align-items: center; gap: 22px; }
+        .nav-link {
+          font-size: 14px; font-weight: 600; color: var(--text-secondary);
+          transition: color 0.2s ease;
+        }
+        .nav-link:hover { color: var(--brand-primary); }
+
+        /* Actions */
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+        .nav-theme-btn {
+          width: 38px; height: 38px; border-radius: 50%;
+          background: var(--bg-tertiary); border: 1px solid var(--border-color);
+          display: flex; align-items: center; justify-content: center;
+        }
+        .nav-donate-btn { padding: 8px 16px !important; font-size: 13px !important; }
+
+        /* Hamburger — hidden on desktop */
+        .nav-hamburger {
+          display: none;
+          width: 42px; height: 42px; border-radius: 12px;
+          background: var(--bg-tertiary); border: 1px solid var(--border-color);
+          align-items: center; justify-content: center; color: var(--text-primary);
+          transition: var(--transition);
+        }
+
+        /* ── Mobile Overlay ── */
+        .nav-overlay {
+          position: fixed; inset: 0; z-index: 300;
+          background: rgba(15,23,42,0.5); backdrop-filter: blur(6px);
+          opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .nav-overlay-open { opacity: 1; pointer-events: auto; }
+
+        /* ── Mobile Drawer ── */
+        .nav-drawer {
+          position: absolute; top: 0; right: 0;
+          width: min(320px, 85vw); height: 100%;
+          background: var(--bg-secondary); border-left: 1px solid var(--border-color);
+          box-shadow: -8px 0 30px rgba(0,0,0,0.15);
+          padding: 24px 20px; overflow-y: auto;
+          display: flex; flex-direction: column; gap: 10px;
+          transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-drawer-open { transform: translateX(0); }
+        .nav-drawer-label {
+          font-size: 11px; font-weight: 700; color: var(--text-muted);
+          text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+        }
+        .nav-drawer-link {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 13px 14px; border-radius: var(--radius-md);
+          background: var(--bg-tertiary); font-size: 16px; font-weight: 700;
+          color: var(--text-primary); transition: var(--transition);
+        }
+        .nav-drawer-link:active { background: var(--brand-light); }
+        .nav-drawer-actions {
+          display: flex; flex-direction: column; gap: 10px;
+          margin-top: auto; padding-top: 16px;
+          border-top: 1px solid var(--border-color);
+        }
+
+        /* ── RESPONSIVE ── */
         @media (max-width: 960px) {
-          .desktop-nav { display: none !important; }
-          .desktop-donate-btn { display: none !important; }
-          .mobile-toggle { display: flex !important; }
+          .nav-desktop { display: none !important; }
+          .nav-donate-btn { display: none !important; }
+          .nav-hamburger { display: flex !important; }
         }
-        @media (min-width: 961px) {
-          .mobile-toggle { display: none !important; }
+        @media (max-width: 480px) {
+          .top-banner-inner { flex-direction: column; text-align: center; }
+          .top-banner-links { justify-content: center; flex-wrap: wrap; }
+          .nav-logo-title { font-size: 15px; }
+          .nav-logo-sub { font-size: 9px; }
+          .nav-logo-icon { width: 34px; height: 34px; }
         }
       `}</style>
     </>
