@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Preloader from './components/Preloader';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import ScrollEnhancements from './components/ScrollEnhancements';
+import WhatsAppButton from './components/WhatsAppButton';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ImpactCounters from './components/ImpactCounters';
@@ -73,6 +74,9 @@ export default function App() {
 
       {/* Scroll Progress & Back-to-Top Enhancements */}
       <ScrollEnhancements />
+
+      {/* Floating WhatsApp Action Button */}
+      <WhatsAppButton />
 
       {/* Navigation Bar */}
       <Navbar
