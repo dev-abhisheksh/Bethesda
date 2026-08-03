@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Quote, MapPin, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Quote, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { stories } from '../data/bethesdaData';
 
 export default function Stories() {
@@ -32,8 +32,8 @@ export default function Stories() {
         </div>
 
         {/* Featured Story Slider Card */}
-        <div className="glass-card" style={{
-          padding: '40px',
+        <div className="glass-card story-card" style={{
+          padding: '36px',
           borderRadius: 'var(--radius-xl)',
           maxWidth: '1000px',
           margin: '0 auto',
@@ -47,7 +47,7 @@ export default function Stories() {
           }} className="story-grid">
             
             {/* Story Photo */}
-            <div style={{ position: 'relative', height: '360px', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+            <div className="story-img-container" style={{ position: 'relative', height: '320px', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
               <img
                 src={current.image}
                 alt={current.name}
@@ -75,7 +75,7 @@ export default function Stories() {
 
             {/* Story Details & Quote */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
                 <span style={{
                   padding: '4px 12px',
                   backgroundColor: 'var(--brand-light)',
@@ -86,34 +86,34 @@ export default function Stories() {
                 }}>
                   {current.category}
                 </span>
-                <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: '600' }}>
+                <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '600' }}>
                   Age: {current.age}
                 </span>
               </div>
 
-              <div style={{ position: 'relative', marginBottom: '24px' }}>
-                <Quote size={40} style={{ color: 'var(--brand-primary)', opacity: 0.25, position: 'absolute', top: '-10px', left: '-10px' }} />
+              <div style={{ position: 'relative', marginBottom: '20px' }}>
+                <Quote size={36} style={{ color: 'var(--brand-primary)', opacity: 0.25, position: 'absolute', top: '-10px', left: '-10px' }} />
                 <p style={{
-                  fontSize: '22px',
+                  fontSize: 'clamp(18px, 2.5vw, 22px)',
                   fontWeight: '700',
                   color: 'var(--text-primary)',
                   lineHeight: '1.4',
                   fontStyle: 'italic',
                   position: 'relative',
                   zIndex: 1,
-                  paddingLeft: '20px'
+                  paddingLeft: '16px'
                 }}>
                   "{current.quote}"
                 </p>
               </div>
 
-              <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '28px' }}>
+              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '24px' }}>
                 {current.storyText}
               </p>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
                 <div>
-                  <h4 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)' }}>{current.name}</h4>
+                  <h4 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text-primary)' }}>{current.name}</h4>
                   <p style={{ fontSize: '13px', color: 'var(--brand-primary)', fontWeight: '600' }}>Beneficiary of Bethesda Trust</p>
                 </div>
 
@@ -121,9 +121,10 @@ export default function Stories() {
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <button
                     onClick={handlePrev}
+                    aria-label="Previous Story"
                     style={{
-                      width: '44px',
-                      height: '44px',
+                      width: '40px',
+                      height: '40px',
                       borderRadius: '50%',
                       backgroundColor: 'var(--bg-tertiary)',
                       color: 'var(--text-primary)',
@@ -137,9 +138,10 @@ export default function Stories() {
                   </button>
                   <button
                     onClick={handleNext}
+                    aria-label="Next Story"
                     style={{
-                      width: '44px',
-                      height: '44px',
+                      width: '40px',
+                      height: '40px',
                       borderRadius: '50%',
                       backgroundColor: 'var(--brand-primary)',
                       color: '#ffffff',
@@ -158,12 +160,6 @@ export default function Stories() {
         </div>
 
       </div>
-
-      <style>{`
-        @media (max-width: 800px) {
-          .story-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-        }
-      `}</style>
     </section>
   );
 }

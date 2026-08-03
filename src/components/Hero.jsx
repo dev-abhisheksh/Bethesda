@@ -6,7 +6,7 @@ export default function Hero({ onOpenDonate }) {
   return (
     <section id="hero" style={{
       position: 'relative',
-      padding: '80px 0 100px 0',
+      padding: '60px 0 80px 0',
       overflow: 'hidden',
       background: 'radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 40%)'
     }}>
@@ -20,11 +20,11 @@ export default function Hero({ onOpenDonate }) {
             </div>
 
             <h1 style={{
-              fontSize: 'clamp(36px, 4.5vw, 56px)',
+              fontSize: 'clamp(32px, 4.5vw, 56px)',
               fontWeight: '800',
               lineHeight: '1.15',
               letterSpacing: '-0.03em',
-              marginBottom: '24px',
+              marginBottom: '20px',
               color: 'var(--text-primary)'
             }}>
               Building a World Where <span style={{
@@ -35,16 +35,16 @@ export default function Hero({ onOpenDonate }) {
             </h1>
 
             <p style={{
-              fontSize: '19px',
+              fontSize: 'clamp(16px, 2vw, 19px)',
               color: 'var(--text-secondary)',
               lineHeight: '1.6',
-              marginBottom: '36px',
+              marginBottom: '32px',
               maxWidth: '560px'
             }}>
               {heroData.subtitle}
             </p>
 
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '40px' }}>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '36px' }} className="hero-btn-wrap">
               <button
                 onClick={() => onOpenDonate()}
                 className="btn btn-accent"
@@ -65,17 +65,17 @@ export default function Hero({ onOpenDonate }) {
             </div>
 
             {/* Micro Trust Indicators */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap', pt: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: '600', color: 'var(--text-muted)' }}>
-                <CheckCircle2 size={18} style={{ color: 'var(--brand-primary)' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: 'var(--text-muted)' }}>
+                <CheckCircle2 size={16} style={{ color: 'var(--brand-primary)' }} />
                 <span>Section 80G Tax Relief</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: '600', color: 'var(--text-muted)' }}>
-                <CheckCircle2 size={18} style={{ color: 'var(--brand-primary)' }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: 'var(--text-muted)' }}>
+                <CheckCircle2 size={16} style={{ color: 'var(--brand-primary)' }} />
                 <span>FCRA International</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: '600', color: 'var(--text-muted)' }}>
-                <CheckCircle2 size={18} style={{ color: 'var(--brand-primary)' }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: '600', color: 'var(--text-muted)' }}>
+                <CheckCircle2 size={16} style={{ color: 'var(--brand-primary)' }} />
                 <span>88% Field Allocation</span>
               </div>
             </div>
@@ -86,17 +86,18 @@ export default function Hero({ onOpenDonate }) {
             
             {/* Main Featured Image Card */}
             <div className="glass-card" style={{
-              padding: '12px',
+              padding: '10px',
               borderRadius: 'var(--radius-xl)',
               overflow: 'hidden',
-              boxShadow: 'var(--shadow-lg)'
+              boxShadow: 'var(--shadow-lg)',
+              position: 'relative'
             }}>
               <img
                 src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop"
                 alt="Bethesda Trust Child Welfare Project"
                 style={{
                   width: '100%',
-                  height: '380px',
+                  height: 'clamp(240px, 35vw, 380px)',
                   objectFit: 'cover',
                   borderRadius: 'var(--radius-lg)',
                 }}
@@ -105,27 +106,29 @@ export default function Hero({ onOpenDonate }) {
               {/* In-Image Impact Pill */}
               <div style={{
                 position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                right: '24px',
-                padding: '16px 20px',
-                background: 'rgba(15, 23, 42, 0.85)',
+                bottom: '20px',
+                left: '20px',
+                right: '20px',
+                padding: '12px 16px',
+                background: 'rgba(15, 23, 42, 0.88)',
                 backdropFilter: 'blur(12px)',
                 borderRadius: 'var(--radius-md)',
                 color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                gap: '12px',
+                flexWrap: 'wrap'
               }}>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>Active Campaign</div>
-                  <div style={{ fontSize: '16px', fontWeight: '700' }}>Project Vidya: School Supplies for 500 Kids</div>
+                  <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>Active Campaign</div>
+                  <div style={{ fontSize: '14px', fontWeight: '700' }}>Project Vidya: School Supplies for 500 Kids</div>
                 </div>
                 <div style={{
-                  padding: '6px 14px',
+                  padding: '4px 12px',
                   background: 'var(--brand-primary)',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   fontWeight: '700'
                 }}>
                   76% Raised
@@ -133,42 +136,12 @@ export default function Hero({ onOpenDonate }) {
               </div>
             </div>
 
-            {/* Floating Floating Stat Badge top-right */}
-            <div className="glass-card" style={{
+            {/* Floating Stat Badge top-right */}
+            <div className="glass-card hero-floating-stat" style={{
               position: 'absolute',
-              top: '-20px',
-              right: '-20px',
-              padding: '16px 24px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-              boxShadow: 'var(--shadow-lg)',
-              borderRadius: 'var(--radius-md)'
-            }}>
-              <div style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '12px',
-                backgroundColor: 'rgba(245, 158, 11, 0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#f59e0b'
-              }}>
-                <Award size={24} />
-              </div>
-              <div>
-                <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)' }}>85,000+</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600' }}>Lives Impacted</div>
-              </div>
-            </div>
-
-            {/* Floating Donor Trust Badge bottom-left */}
-            <div className="glass-card" style={{
-              position: 'absolute',
-              bottom: '-20px',
-              left: '-20px',
-              padding: '16px 20px',
+              top: '-16px',
+              right: '-16px',
+              padding: '14px 20px',
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
@@ -178,6 +151,36 @@ export default function Hero({ onOpenDonate }) {
               <div style={{
                 width: '40px',
                 height: '40px',
+                borderRadius: '12px',
+                backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#f59e0b'
+              }}>
+                <Award size={22} />
+              </div>
+              <div>
+                <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text-primary)' }}>85,000+</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600' }}>Lives Impacted</div>
+              </div>
+            </div>
+
+            {/* Floating Donor Trust Badge bottom-left */}
+            <div className="glass-card hero-floating-trust" style={{
+              position: 'absolute',
+              bottom: '-16px',
+              left: '-16px',
+              padding: '14px 18px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              boxShadow: 'var(--shadow-lg)',
+              borderRadius: 'var(--radius-md)'
+            }}>
+              <div style={{
+                width: '38px',
+                height: '38px',
                 borderRadius: '50%',
                 backgroundColor: 'rgba(16, 185, 129, 0.15)',
                 display: 'flex',
@@ -185,11 +188,11 @@ export default function Hero({ onOpenDonate }) {
                 justifyContent: 'center',
                 color: 'var(--brand-primary)'
               }}>
-                <Users size={20} />
+                <Users size={18} />
               </div>
               <div>
-                <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)' }}>25,000+ Global Donors</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Verified Non-Profit Trust</div>
+                <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-primary)' }}>25,000+ Global Donors</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Verified Non-Profit Trust</div>
               </div>
             </div>
 
@@ -197,12 +200,6 @@ export default function Hero({ onOpenDonate }) {
 
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 960px) {
-          .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-        }
-      `}</style>
     </section>
   );
 }

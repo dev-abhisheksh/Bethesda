@@ -36,7 +36,7 @@ export default function Calculator({ onOpenDonate }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
-                <div style={{ padding: '8px', borderRadius: '50%', backgroundColor: 'var(--brand-light)', color: 'var(--brand-primary)' }}>
+                <div style={{ padding: '8px', borderRadius: '50%', backgroundColor: 'var(--brand-light)', color: 'var(--brand-primary)', flexShrink: 0 }}>
                   <CheckCircle size={20} />
                 </div>
                 <div>
@@ -46,7 +46,7 @@ export default function Calculator({ onOpenDonate }) {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
-                <div style={{ padding: '8px', borderRadius: '50%', backgroundColor: 'var(--brand-light)', color: 'var(--brand-primary)' }}>
+                <div style={{ padding: '8px', borderRadius: '50%', backgroundColor: 'var(--brand-light)', color: 'var(--brand-primary)', flexShrink: 0 }}>
                   <CheckCircle size={20} />
                 </div>
                 <div>
@@ -58,9 +58,9 @@ export default function Calculator({ onOpenDonate }) {
           </div>
 
           {/* Right Column Interactive Slider Card */}
-          <div className="glass-card" style={{ padding: '36px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-lg)' }}>
+          <div className="glass-card" style={{ padding: '32px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-lg)' }}>
             
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <CalcIcon size={24} style={{ color: 'var(--brand-primary)' }} />
                 <span style={{ fontSize: '18px', fontWeight: '700' }}>Choose Donation Amount</span>
@@ -69,7 +69,7 @@ export default function Calculator({ onOpenDonate }) {
             </div>
 
             {/* Quick Amount Buttons */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '24px' }} className="preset-grid">
               {impactCalculatorTiers.map((tier) => (
                 <button
                   key={tier.amount}
@@ -91,7 +91,7 @@ export default function Calculator({ onOpenDonate }) {
             </div>
 
             {/* Range Slider */}
-            <div style={{ marginBottom: '32px' }}>
+            <div style={{ marginBottom: '28px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '14px', fontWeight: '600', color: 'var(--text-secondary)' }}>
                 <span>Slide custom amount:</span>
                 <strong style={{ fontSize: '18px', color: 'var(--brand-primary)' }}>${selectedAmount}</strong>
@@ -115,17 +115,17 @@ export default function Calculator({ onOpenDonate }) {
 
             {/* Dynamic Result Output Card */}
             <div style={{
-              padding: '24px',
+              padding: '20px',
               borderRadius: 'var(--radius-lg)',
               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%)',
               border: '1.5px dashed var(--brand-primary)',
-              marginBottom: '28px',
+              marginBottom: '24px',
               textAlign: 'center',
             }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--brand-primary)', fontWeight: '700', fontSize: '13px', textTransform: 'uppercase', marginBottom: '8px' }}>
                 <Sparkles size={16} /> Real-World Impact Result
               </div>
-              <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', lineHeight: '1.3' }}>
+              <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text-primary)', lineHeight: '1.3' }}>
                 {currentTier.impact}
               </div>
             </div>
@@ -134,9 +134,9 @@ export default function Calculator({ onOpenDonate }) {
             <button
               onClick={() => onOpenDonate('', selectedAmount)}
               className="btn btn-accent"
-              style={{ width: '100%', padding: '16px', fontSize: '17px' }}
+              style={{ width: '100%', padding: '16px', fontSize: '16px' }}
             >
-              <Heart size={20} fill="#ffffff" />
+              <Heart size={18} fill="#ffffff" />
               <span>Donate ${selectedAmount} & Make This Impact</span>
             </button>
 
@@ -145,12 +145,6 @@ export default function Calculator({ onOpenDonate }) {
         </div>
 
       </div>
-
-      <style>{`
-        @media (max-width: 900px) {
-          .calc-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 }
