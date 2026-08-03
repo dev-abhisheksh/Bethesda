@@ -1,10 +1,11 @@
 import React from 'react';
 import { Heart, ShieldCheck, ExternalLink, ArrowUp } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
+import { smoothScrollTo } from '../utils/smoothScroll';
 
 export default function Footer({ onOpenDonate }) {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    smoothScrollTo('#hero', 1000, 0);
   };
 
   return (

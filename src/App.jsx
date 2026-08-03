@@ -12,6 +12,7 @@ import FAQSection from './components/FAQSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import DonationModal from './components/DonationModal';
+import { initAnimeSmoothScroll, smoothScrollTo } from './utils/smoothScroll';
 
 export default function App() {
   const [theme, setTheme] = useState('light');
@@ -22,6 +23,12 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Initialize Anime.js smooth scrolling for all internal anchor links
+  useEffect(() => {
+    const cleanup = initAnimeSmoothScroll();
+    return () => cleanup();
+  }, []);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
@@ -38,10 +45,7 @@ export default function App() {
   };
 
   const handleOpenVolunteer = () => {
-    const volSection = document.getElementById('volunteer');
-    if (volSection) {
-      volSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo('#volunteer', 1000, -70);
   };
 
   return (
