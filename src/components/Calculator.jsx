@@ -5,12 +5,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 export default function Calculator({ onOpenDonate }) {
-  const [selectedAmount, setSelectedAmount] = useState(60);
+  const [selectedAmount, setSelectedAmount] = useState(2500);
 
   // Find tier or calculate dynamic impact
   const currentTier = impactCalculatorTiers.find(t => t.amount === selectedAmount) || {
     amount: selectedAmount,
-    impact: `Provides $${selectedAmount} worth of vital food, medicine, and emergency supplies to destitute families.`
+    impact: `Provides ₹${selectedAmount.toLocaleString('en-IN')} worth of vital food, medicine, and emergency supplies to destitute families.`
   };
 
   return (
@@ -33,7 +33,7 @@ export default function Calculator({ onOpenDonate }) {
               See the Power of Your Contribution
             </h2>
             <p className="section-subheading" style={{ marginBottom: '32px' }}>
-              At Bethesda Trust, every single dollar is stretched to maximize impact. Adjust the slider or pick an amount to see exactly how your gift transforms lives in real-time.
+              At Bethesda Trust, every single rupee is stretched to maximize impact. Adjust the slider or pick an amount to see exactly how your gift transforms lives in real-time.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -78,9 +78,9 @@ export default function Calculator({ onOpenDonate }) {
                   key={tier.amount}
                   onClick={() => setSelectedAmount(tier.amount)}
                   style={{
-                    padding: '12px',
+                    padding: '10px 8px',
                     borderRadius: 'var(--radius-md)',
-                    fontSize: '16px',
+                    fontSize: '14px',
                     fontWeight: '700',
                     backgroundColor: selectedAmount === tier.amount ? 'var(--brand-primary)' : 'var(--bg-tertiary)',
                     color: selectedAmount === tier.amount ? '#ffffff' : 'var(--text-primary)',
@@ -88,7 +88,7 @@ export default function Calculator({ onOpenDonate }) {
                     transition: 'var(--transition)'
                   }}
                 >
-                  ${tier.amount}
+                  ₹{tier.amount.toLocaleString('en-IN')}
                 </button>
               ))}
             </div>
@@ -97,13 +97,13 @@ export default function Calculator({ onOpenDonate }) {
             <div style={{ marginBottom: '28px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '14px', fontWeight: '600', color: 'var(--text-secondary)' }}>
                 <span>Slide custom amount:</span>
-                <strong style={{ fontSize: '18px', color: 'var(--brand-primary)' }}>${selectedAmount}</strong>
+                <strong style={{ fontSize: '18px', color: 'var(--brand-primary)' }}>₹{selectedAmount.toLocaleString('en-IN')}</strong>
               </div>
               <input
                 type="range"
-                min="10"
-                max="500"
-                step="5"
+                min="500"
+                max="50000"
+                step="500"
                 value={selectedAmount}
                 onChange={(e) => setSelectedAmount(Number(e.target.value))}
                 style={{
@@ -140,7 +140,7 @@ export default function Calculator({ onOpenDonate }) {
               style={{ width: '100%', padding: '16px', fontSize: '16px' }}
             >
               <Heart size={18} fill="#ffffff" />
-              <span>Donate ${selectedAmount} & Make This Impact</span>
+              <span>Donate ₹{selectedAmount.toLocaleString('en-IN')} & Make This Impact</span>
             </button>
 
             </CardContent>

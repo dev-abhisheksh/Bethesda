@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import ImpactCounters from './components/ImpactCounters';
 import Causes from './components/Causes';
 import Calculator from './components/Calculator';
-import Stories from './components/Stories';
 import Transparency from './components/Transparency';
 import Gallery from './components/Gallery';
 import VolunteerSection from './components/VolunteerSection';
@@ -18,7 +17,7 @@ export default function App() {
   const [theme, setTheme] = useState('light');
   const [donateOpen, setDonateOpen] = useState(false);
   const [selectedCause, setSelectedCause] = useState('');
-  const [selectedAmount, setSelectedAmount] = useState(50);
+  const [selectedAmount, setSelectedAmount] = useState(2500);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -34,7 +33,7 @@ export default function App() {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
-  const handleOpenDonate = (causeTitle = '', amountVal = 50) => {
+  const handleOpenDonate = (causeTitle = '', amountVal = 2500) => {
     setSelectedCause(causeTitle);
     setSelectedAmount(amountVal);
     setDonateOpen(true);
@@ -64,7 +63,6 @@ export default function App() {
         <ImpactCounters />
         <Causes onOpenDonate={handleOpenDonate} />
         <Calculator onOpenDonate={handleOpenDonate} />
-        <Stories />
         <Transparency />
         <Gallery />
         <VolunteerSection />

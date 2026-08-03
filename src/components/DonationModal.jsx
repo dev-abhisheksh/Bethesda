@@ -3,14 +3,13 @@ import Card from '@mui/material/Card';
 import { X, Heart, ShieldCheck, CheckCircle2, Lock, Printer } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export default function DonationModal({ isOpen, onClose, initialCause = '', initialAmount = 50 }) {
+export default function DonationModal({ isOpen, onClose, initialCause = '', initialAmount = 2500 }) {
   const [frequency, setFrequency] = useState('one-time');
   const [amount, setAmount] = useState(initialAmount);
   const [customAmount, setCustomAmount] = useState('');
-  const [currency] = useState('USD');
+  const [currency] = useState('INR');
   const [step, setStep] = useState(1); // 1: Form, 2: Receipt Success
-  
-  // Donor Form state
+
   const [donor, setDonor] = useState({
     name: '',
     email: '',
@@ -18,7 +17,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
     pan: '',
   });
 
-  const currencySymbols = { USD: '$', INR: '₹', EUR: '€', GBP: '£' };
+  const currencySymbols = { INR: '₹', USD: '$', EUR: '€', GBP: '£' };
 
   useEffect(() => {
     if (initialAmount) setAmount(initialAmount);
@@ -41,18 +40,22 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
     if (amount <= 0) return alert('Please enter a valid donation amount');
     if (!donor.name || !donor.email) return alert('Please fill in your name and email');
 
-    // Trigger confetti animation!
     try {
       confetti({
-        particleCount: 120,
+        particleCount: 100,
         spread: 70,
         origin: { y: 0.6 }
       });
-    } catch (err) {
-      console.log(err);
+    } catch {
+      // fallback
     }
 
-    setStep(2); // Go to receipt step
+    setStep(2);
+  };
+
+  const resetModal = () => {
+    setStep(1);
+    onClose();
   };
 
   const receiptId = `BTH-2026-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -76,18 +79,17 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
         borderRadius: 'var(--radius-xl)',
         maxWidth: '560px',
         width: '100%',
-        padding: '32px',
         position: 'relative',
         boxShadow: 'var(--shadow-lg)',
-        border: '1px solid var(--border-color)',
+        padding: '32px 28px',
         maxHeight: '90vh',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        animation: 'modalPop 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
       }}>
         
         {/* Close Button */}
         <button
-          onClick={onClose}
-          aria-label="Close Modal"
+          onClick={resetModal}
           style={{
             position: 'absolute',
             top: '20px',
@@ -100,6 +102,8 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            border: '1px solid var(--border-color)',
+            cursor: 'pointer'
           }}
         >
           <X size={20} />
@@ -107,119 +111,120 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
 
         {step === 1 ? (
           <div>
-            {/* Header */}
-            <div style={{ textCenter: 'center', marginBottom: '20px', paddingRight: '32px' }}>
+            {/* Modal Header */}
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{
-                display: 'inline-flex',
+                width: '52px',
+                height: '52px',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, var(--brand-primary) 0%, #10b981 100%)',
+                color: '#ffffff',
+                display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
-                padding: '4px 14px',
-                borderRadius: 'var(--radius-full)',
-                backgroundColor: 'var(--brand-light)',
-                color: 'var(--brand-primary)',
-                fontSize: '13px',
-                fontWeight: '700',
-                marginBottom: '8px'
+                justifyContent: 'center',
+                margin: '0 auto 12px auto',
+                boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)'
               }}>
-                <Heart size={14} fill="var(--brand-primary)" /> Tax-Deductible Donation
+                <Heart size={26} fill="#ffffff" />
               </div>
-              <h2 style={{ fontSize: 'clamp(20px, 3vw, 24px)', fontWeight: '800' }}>
+              <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '4px', color: 'var(--text-primary)' }}>
                 {initialCause ? `Support ${initialCause}` : 'Make a Lifesaving Donation'}
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                Every contribution directly supports food, education, and elder care.
+                100% Tax Deductible under Section 80G · 12A Certified
               </p>
             </div>
 
-            {/* Frequency Toggle */}
-            <div style={{
-              display: 'flex',
-              backgroundColor: 'var(--bg-tertiary)',
-              padding: '4px',
-              borderRadius: 'var(--radius-full)',
-              marginBottom: '20px',
-            }}>
-              <button
-                type="button"
-                onClick={() => setFrequency('one-time')}
-                style={{
-                  flex: 1,
-                  padding: '10px 8px',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  backgroundColor: frequency === 'one-time' ? 'var(--brand-primary)' : 'transparent',
-                  color: frequency === 'one-time' ? '#ffffff' : 'var(--text-secondary)',
-                  transition: 'var(--transition)'
-                }}
-              >
-                One-Time Gift
-              </button>
-              <button
-                type="button"
-                onClick={() => setFrequency('monthly')}
-                style={{
-                  flex: 1,
-                  padding: '10px 8px',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  backgroundColor: frequency === 'monthly' ? 'var(--brand-primary)' : 'transparent',
-                  color: frequency === 'monthly' ? '#ffffff' : 'var(--text-secondary)',
-                  transition: 'var(--transition)'
-                }}
-              >
-                ❤️ Monthly Partner
-              </button>
-            </div>
-
-            {/* Amount Presets */}
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--text-secondary)', marginBottom: '8px' }}>
-                Select Gift Amount ({currencySymbols[currency]})
-              </label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '12px' }} className="preset-grid">
-                {[15, 35, 60, 120, 250, 500].map((val) => (
-                  <button
-                    key={val}
-                    type="button"
-                    onClick={() => handlePresetClick(val)}
-                    style={{
-                      padding: '10px',
-                      borderRadius: 'var(--radius-md)',
-                      fontSize: '15px',
-                      fontWeight: '700',
-                      backgroundColor: amount === val && !customAmount ? 'var(--brand-primary)' : 'var(--bg-tertiary)',
-                      color: amount === val && !customAmount ? '#ffffff' : 'var(--text-primary)',
-                      border: amount === val && !customAmount ? '1px solid var(--brand-primary)' : '1px solid var(--border-color)',
-                      transition: 'var(--transition)'
-                    }}
-                  >
-                    {currencySymbols[currency]}{val}
-                  </button>
-                ))}
+            <form onSubmit={handleSubmit}>
+              
+              {/* Frequency Toggle */}
+              <div style={{
+                display: 'flex',
+                padding: '4px',
+                backgroundColor: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-full)',
+                marginBottom: '20px'
+              }}>
+                <button
+                  type="button"
+                  onClick={() => setFrequency('one-time')}
+                  style={{
+                    flex: 1,
+                    padding: '10px 8px',
+                    borderRadius: 'var(--radius-full)',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    backgroundColor: frequency === 'one-time' ? 'var(--brand-primary)' : 'transparent',
+                    color: frequency === 'one-time' ? '#ffffff' : 'var(--text-secondary)',
+                    transition: 'var(--transition)'
+                  }}
+                >
+                  ⚡ One-Time Gift
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFrequency('monthly')}
+                  style={{
+                    flex: 1,
+                    padding: '10px 8px',
+                    borderRadius: 'var(--radius-full)',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    backgroundColor: frequency === 'monthly' ? 'var(--brand-primary)' : 'transparent',
+                    color: frequency === 'monthly' ? '#ffffff' : 'var(--text-secondary)',
+                    transition: 'var(--transition)'
+                  }}
+                >
+                  ❤️ Monthly Partner
+                </button>
               </div>
 
-              {/* Custom Input */}
-              <input
-                type="number"
-                placeholder={`Or custom amount in ${currency}...`}
-                value={customAmount}
-                onChange={handleCustomChange}
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-color)',
-                  backgroundColor: 'var(--bg-primary)',
-                  color: 'var(--text-primary)',
-                  fontSize: '14px'
-                }}
-              />
-            </div>
+              {/* Amount Presets */}
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                  Select Gift Amount ({currencySymbols[currency]})
+                </label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '12px' }} className="preset-grid">
+                  {[500, 1500, 2500, 5000, 10000, 25000].map((val) => (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => handlePresetClick(val)}
+                      style={{
+                        padding: '10px 4px',
+                        borderRadius: 'var(--radius-md)',
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        backgroundColor: amount === val && !customAmount ? 'var(--brand-primary)' : 'var(--bg-tertiary)',
+                        color: amount === val && !customAmount ? '#ffffff' : 'var(--text-primary)',
+                        border: amount === val && !customAmount ? '1px solid var(--brand-primary)' : '1px solid var(--border-color)',
+                        transition: 'var(--transition)'
+                      }}
+                    >
+                      ₹{val.toLocaleString('en-IN')}
+                    </button>
+                  ))}
+                </div>
 
-            {/* Donor Information Form */}
-            <form onSubmit={handleSubmit}>
+                {/* Custom Input */}
+                <input
+                  type="number"
+                  placeholder={`Or custom amount in ${currency}...`}
+                  value={customAmount}
+                  onChange={handleCustomChange}
+                  style={{
+                    width: '100%',
+                    padding: '12px 14px',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border-color)',
+                    backgroundColor: 'var(--bg-primary)',
+                    color: 'var(--text-primary)',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+
+              {/* Donor Information Form */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
                 <div style={{ flex: '1 1 200px' }}>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', marginBottom: '4px', color: 'var(--text-secondary)' }}>Full Name *</label>
@@ -250,7 +255,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', marginBottom: '4px', color: 'var(--text-secondary)' }}>Phone Number</label>
                   <input
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 98765 43210"
                     value={donor.phone}
                     onChange={(e) => setDonor({ ...donor, phone: e.target.value })}
                     style={{ width: '100%', padding: '10px 14px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
@@ -275,7 +280,7 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
                 style={{ width: '100%', padding: '14px', fontSize: '16px' }}
               >
                 <Lock size={18} />
-                <span>Donate {currencySymbols[currency]}{amount} Now ({frequency})</span>
+                <span>Donate ₹{amount.toLocaleString('en-IN')} Now ({frequency})</span>
               </button>
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '12px', color: 'var(--text-muted)', marginTop: '12px' }}>
@@ -301,55 +306,55 @@ export default function DonationModal({ isOpen, onClose, initialCause = '', init
               <CheckCircle2 size={32} />
             </div>
 
-            <h2 style={{ fontSize: 'clamp(14px, 3vw, 24px)', fontWeight: '800', marginBottom: '4px', color: 'var(--text-primary)' }}>
+            <h2 style={{ fontSize: 'clamp(18px, 3vw, 24px)', fontWeight: '800', marginBottom: '4px', color: 'var(--text-primary)' }}>
               Thank You, {donor.name}!
             </h2>
             <p style={{ fontSize: '14px', color: 'var(--brand-primary)', fontWeight: '600', marginBottom: '20px' }}>
-              Your gift of {currencySymbols[currency]}{amount} is transforming lives today.
+              Your generous contribution of ₹{amount.toLocaleString('en-IN')} has been received.
             </p>
 
-            {/* Official Digital Receipt Card */}
+            {/* Tax Receipt Card */}
             <div style={{
-              backgroundColor: 'var(--bg-primary)',
+              padding: '20px',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: 'var(--bg-tertiary)',
               border: '1px solid var(--border-color)',
-              borderRadius: 'var(--radius-lg)',
-              padding: '16px',
               textAlign: 'left',
-              marginBottom: '20px',
+              marginBottom: '24px',
               fontSize: '13px'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px', marginBottom: '10px', flexWrap: 'wrap', gap: '4px' }}>
-                <strong>Bethesda Charitable Trust</strong>
-                <span style={{ color: 'var(--brand-primary)', fontWeight: '700' }}>OFFICIAL DONATION RECEIPT</span>
+              <div style={{ fontWeight: '800', color: 'var(--brand-primary)', marginBottom: '12px', fontSize: '14px' }}>
+                📄 OFFICIAL 80G TAX DEDUCTION RECEIPT
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px', marginBottom: '10px' }}>
-                <div><span style={{ color: 'var(--text-muted)' }}>Receipt No:</span> <strong>{receiptId}</strong></div>
-                <div><span style={{ color: 'var(--text-muted)' }}>Date:</span> <strong>{currentDate}</strong></div>
-                <div><span style={{ color: 'var(--text-muted)' }}>Donor Name:</span> <strong>{donor.name}</strong></div>
-                <div><span style={{ color: 'var(--text-muted)' }}>Tax Exempt ID:</span> <strong>{donor.pan || 'N/A'}</strong></div>
-                <div><span style={{ color: 'var(--text-muted)' }}>80G Reg No:</span> <strong>REG-TN/2016/8842</strong></div>
-                <div><span style={{ color: 'var(--text-muted)' }}>Status:</span> <strong>100% Tax Deduction Valid</strong></div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '12px' }} className="receipt-grid">
+                <div><strong>Receipt No:</strong> {receiptId}</div>
+                <div><strong>Date:</strong> {currentDate}</div>
+                <div><strong>Donor Name:</strong> {donor.name}</div>
+                <div><strong>PAN Ref:</strong> {donor.pan || 'N/A'}</div>
+                <div><strong>Status:</strong> Tax Exempt (80G)</div>
+                <div><strong>Email:</strong> {donor.email}</div>
               </div>
               <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '14px', fontWeight: '700' }}>Total Contributed:</span>
-                <span style={{ fontSize: 'clamp(14px, 2.5vw, 20px)', fontWeight: '800', color: 'var(--brand-primary)' }}>{currencySymbols[currency]}{amount}</span>
+                <span style={{ fontSize: 'clamp(16px, 2.5vw, 20px)', fontWeight: '800', color: 'var(--brand-primary)' }}>₹{amount.toLocaleString('en-IN')}</span>
               </div>
             </div>
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <button
-                onClick={() => window.print()}
+                onClick={() => alert(`Receipt #${receiptId} has been sent to ${donor.email}`)}
                 className="btn btn-outline"
-                style={{ flex: 1, padding: '12px' }}
+                style={{ flex: 1, padding: '12px', fontSize: '14px' }}
               >
-                <Printer size={16} /> Print Receipt
+                <Printer size={16} />
+                <span>Print / Email Receipt</span>
               </button>
               <button
-                onClick={onClose}
+                onClick={resetModal}
                 className="btn btn-primary"
-                style={{ flex: 1, padding: '12px' }}
+                style={{ flex: 1, padding: '12px', fontSize: '14px' }}
               >
-                Close & Return
+                Done
               </button>
             </div>
           </div>

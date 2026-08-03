@@ -93,7 +93,7 @@ export const causes = [
     donors: 412,
     shortDesc: "Providing annual schooling, textbooks, uniforms, and mentorship to 500 orphaned and rural children.",
     details: "Education is the greatest equalizer. Project Vidya ensures children from low-income families and orphanages stay in school with full tuition, digital learning tools, and daily nutritious meals.",
-    impactPoint: "$25 sponsors a child's complete school supplies for 6 months."
+    impactPoint: "₹1,000 sponsors a child's complete school supplies for 6 months."
   },
   {
     id: "elderly-shelter",
@@ -106,7 +106,7 @@ export const causes = [
     donors: 680,
     shortDesc: "Comprehensive shelter, palliative care, and companionship for abandoned and destitute senior citizens.",
     details: "Many elderly individuals face neglect and severe health challenges. Bethesda Senior Sanctuary offers comfortable beds, round-the-clock nursing staff, healthy meals, and an affectionate community.",
-    impactPoint: "$50 provides full month room, food, and medical checkups for an elder."
+    impactPoint: "₹2,500 provides full month room, food, and medical checkups for an elder."
   },
   {
     id: "rural-healthcare",
@@ -119,7 +119,7 @@ export const causes = [
     donors: 310,
     shortDesc: "Bringing mobile medical units, free prescription drugs, and sight-restoring surgeries to remote villages.",
     details: "Preventable illnesses remain untreated in remote rural pockets due to lack of facilities. Our mobile health van visits 30+ villages monthly, offering free diagnosis, medicines, and surgical referrals.",
-    impactPoint: "$35 restores vision for one elderly villager through free cataract surgery."
+    impactPoint: "₹1,500 restores vision for one elderly villager through free cataract surgery."
   },
   {
     id: "emergency-relief",
@@ -132,7 +132,7 @@ export const causes = [
     donors: 295,
     shortDesc: "Monthly grocery ration kits and cooked food distribution for daily wage earners in distress.",
     details: "Economic shocks leave thousands of vulnerable daily wage families facing acute food insecurity. Our ration kits feed a family of 4 for an entire month with essential grains, pulses, oil, and hygiene supplies.",
-    impactPoint: "$30 provides a 30-day essential food kit for a needy family."
+    impactPoint: "₹1,200 provides a 30-day essential food kit for a needy family."
   },
   {
     id: "women-empowerment",
@@ -145,17 +145,17 @@ export const causes = [
     donors: 240,
     shortDesc: "Training widowed and underprivileged women in tailoring, handicraft, and small business management.",
     details: "Empowering women creates resilient families. We provide 3-month certified vocational training courses, free sewing machines upon graduation, and micro-loan guidance to build self-sustaining livelihoods.",
-    impactPoint: "$75 gifts a graduating woman her own sewing machine to start a business."
+    impactPoint: "₹3,500 gifts a graduating woman her own sewing machine to start a business."
   }
 ];
 
 export const impactCalculatorTiers = [
-  { amount: 15, impact: "Provides 30 hot nutritious meals to street children" },
-  { amount: 35, impact: "Funds 1 free sight-restoring cataract surgery" },
-  { amount: 60, impact: "Educates 2 children with full school kits for a term" },
-  { amount: 120, impact: "Supports 1 senior citizen with 24/7 care for a month" },
-  { amount: 250, impact: "Equips 3 women with sewing machines & business kits" },
-  { amount: 500, impact: "Sponsors a full rural mobile health clinic day for a village" }
+  { amount: 500, impact: "Provides 30 hot nutritious meals to street children" },
+  { amount: 1500, impact: "Funds 1 free sight-restoring cataract surgery" },
+  { amount: 2500, impact: "Educates 2 children with full school kits for a term" },
+  { amount: 5000, impact: "Supports 1 senior citizen with 24/7 care for a month" },
+  { amount: 10000, impact: "Equips 3 women with sewing machines & business kits" },
+  { amount: 25000, impact: "Sponsors a full rural mobile health clinic day for a village" }
 ];
 
 export const stories = [
@@ -212,7 +212,7 @@ export const faqs = [
   },
   {
     q: "How can I be sure my money reaches the beneficiaries?",
-    a: "Bethesda Trust operates with total transparency. 88% of every dollar goes directly into field operations. We publish independently audited financial statements annually and send quarterly progress reports with photos to all donors."
+    a: "Bethesda Trust operates with total transparency. 88% of every rupee goes directly into field operations. We publish independently audited financial statements annually and send quarterly progress reports with photos to all donors."
   },
   {
     q: "Can I donate from outside India (International Donors)?",
