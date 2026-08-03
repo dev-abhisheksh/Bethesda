@@ -1,0 +1,169 @@
+import React, { useState } from 'react';
+import { Quote, MapPin, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { stories } from '../data/bethesdaData';
+
+export default function Stories() {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const current = stories[activeIdx];
+
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev + 1) % stories.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev - 1 + stories.length) % stories.length);
+  };
+
+  return (
+    <section id="stories" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <div className="container">
+        
+        <div className="section-title-wrap">
+          <div className="section-badge">
+            💬 Real Lives Changed
+          </div>
+          <h2 className="section-heading">
+            Stories of Hope & Renewal
+          </h2>
+          <p className="section-subheading">
+            Behind every stat is a real human life given dignity, education, and health.
+          </p>
+        </div>
+
+        {/* Featured Story Slider Card */}
+        <div className="glass-card" style={{
+          padding: '40px',
+          borderRadius: 'var(--radius-xl)',
+          maxWidth: '1000px',
+          margin: '0 auto',
+          position: 'relative',
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '320px 1fr',
+            gap: '40px',
+            alignItems: 'center',
+          }} className="story-grid">
+            
+            {/* Story Photo */}
+            <div style={{ position: 'relative', height: '360px', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+              <img
+                src={current.image}
+                alt={current.name}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '16px',
+                left: '16px',
+                padding: '6px 14px',
+                backgroundColor: 'rgba(15, 23, 42, 0.85)',
+                backdropFilter: 'blur(8px)',
+                color: '#ffffff',
+                fontSize: '12px',
+                fontWeight: '700',
+                borderRadius: 'var(--radius-full)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+                <MapPin size={14} style={{ color: 'var(--brand-primary)' }} />
+                <span>{current.location}</span>
+              </div>
+            </div>
+
+            {/* Story Details & Quote */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <span style={{
+                  padding: '4px 12px',
+                  backgroundColor: 'var(--brand-light)',
+                  color: 'var(--brand-primary)',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '13px',
+                  fontWeight: '700'
+                }}>
+                  {current.category}
+                </span>
+                <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: '600' }}>
+                  Age: {current.age}
+                </span>
+              </div>
+
+              <div style={{ position: 'relative', marginBottom: '24px' }}>
+                <Quote size={40} style={{ color: 'var(--brand-primary)', opacity: 0.25, position: 'absolute', top: '-10px', left: '-10px' }} />
+                <p style={{
+                  fontSize: '22px',
+                  fontWeight: '700',
+                  color: 'var(--text-primary)',
+                  lineHeight: '1.4',
+                  fontStyle: 'italic',
+                  position: 'relative',
+                  zIndex: 1,
+                  paddingLeft: '20px'
+                }}>
+                  "{current.quote}"
+                </p>
+              </div>
+
+              <p style={{ fontSize: '16px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '28px' }}>
+                {current.storyText}
+              </p>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <h4 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)' }}>{current.name}</h4>
+                  <p style={{ fontSize: '13px', color: 'var(--brand-primary)', fontWeight: '600' }}>Beneficiary of Bethesda Trust</p>
+                </div>
+
+                {/* Slider Controls */}
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    onClick={handlePrev}
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--bg-tertiary)',
+                      color: 'var(--text-primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '1px solid var(--border-color)',
+                    }}
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--brand-primary)',
+                      color: '#ffffff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <style>{`
+        @media (max-width: 800px) {
+          .story-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
