@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ImpactCounters from './components/ImpactCounters';
@@ -49,6 +50,9 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      {/* Initial Page Splash Preloader */}
+      <Preloader />
+
       {/* Navigation Bar */}
       <Navbar
         theme={theme}
