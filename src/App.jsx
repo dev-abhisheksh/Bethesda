@@ -8,6 +8,7 @@ import Hero from './components/Hero';
 import ImpactCounters from './components/ImpactCounters';
 import Causes from './components/Causes';
 import Calculator from './components/Calculator';
+import LeadershipSection from './components/LeadershipSection';
 import Transparency from './components/Transparency';
 import Gallery from './components/Gallery';
 import VolunteerSection from './components/VolunteerSection';
@@ -92,6 +93,7 @@ export default function App() {
         <ImpactCounters />
         <Causes onOpenDonate={handleOpenDonate} />
         <Calculator onOpenDonate={handleOpenDonate} />
+        <LeadershipSection />
         <Transparency />
         <Gallery />
         <VolunteerSection />

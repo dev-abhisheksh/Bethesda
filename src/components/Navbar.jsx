@@ -23,6 +23,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
     { name: 'Our Causes', href: '#causes' },
     { name: 'Impact', href: '#impact' },
     { name: 'Calculator', href: '#calculator' },
+    { name: 'Leadership', href: '#leadership' },
     { name: 'Transparency', href: '#transparency' },
     { name: 'FAQ', href: '#faq' },
     { name: 'Contact', href: '#contact' },

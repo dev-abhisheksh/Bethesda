@@ -236,3 +236,12 @@ export const galleryItems = [
   { title: "Women's Vocational Training", category: "Empowerment", img: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=600&auto=format&fit=crop" },
   { title: "Free Health Checkups", category: "Healthcare", img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=600&auto=format&fit=crop" }
 ];
+
+export const leadershipTeam = [
+  { name: "Mrs. Rajani S Naik", role: "President", image: "/rajani_s_naik.webp" },
+  { name: "Mr. Anil Aranah", role: "Secretary", image: "/anil.webp" },
+  { name: "Mrs. Selina Aranha", role: "Treasurer", image: "/selina.webp" },
+  { name: "Dr. Deepa Mathew", role: "Adviser", image: "/deepa.webp" },
+  { name: "Mr. Moses Aghamkar", role: "C.E.O", image: "/moses.webp" }
+];
+
