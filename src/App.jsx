@@ -17,13 +17,16 @@ import DonatePage from './pages/DonatePage';
 import ContactPage from './pages/ContactPage';
 
 function AppInner() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('bethesda_theme') || 'light';
+  });
   const [isThemeSwitching, setIsThemeSwitching] = useState(false);
   const [targetTheme, setTargetTheme] = useState('dark');
   const { navigateTo } = usePageTransition();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('bethesda_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
