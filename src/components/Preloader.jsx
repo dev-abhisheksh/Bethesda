@@ -48,6 +48,9 @@ export default function Preloader() {
       className={`preloader-overlay ${isFading ? 'preloader-fade-out' : ''}`}
       aria-label="Loading Bethesda Trust Website"
     >
+      {/* Background Glow */}
+      <div className="preloader-glow" />
+
       <div className="preloader-content">
         
         {/* Pulsing Heart Logo Badge */}
@@ -55,7 +58,7 @@ export default function Preloader() {
           <div className="preloader-pulse-ring" />
           <div className="preloader-pulse-ring delay-1" />
           <div className="preloader-icon-box">
-            <Heart size={36} fill="#ffffff" color="#ffffff" className="preloader-heart-icon" />
+            <Heart size={34} fill="#ffffff" color="#ffffff" className="preloader-heart-icon" />
           </div>
         </div>
 
@@ -65,7 +68,7 @@ export default function Preloader() {
         </h1>
         
         <div className="preloader-subtitle">
-          <ShieldCheck size={14} color="var(--brand-primary)" />
+          <ShieldCheck size={14} color="#38bdf8" />
           <span>Charitable Non-Profit · Restoring Dignity</span>
         </div>
 
@@ -80,7 +83,7 @@ export default function Preloader() {
         {/* Percentage & Tagline */}
         <div className="preloader-footer-row">
           <span className="preloader-quote">
-            <Sparkles size={13} style={{ color: '#f59e0b' }} /> Together, we transform lives
+            <Sparkles size={13} style={{ color: '#fbbf24' }} /> Together, we transform lives
           </span>
           <span className="preloader-percent">{progress}%</span>
         </div>
@@ -93,17 +96,29 @@ export default function Preloader() {
           position: fixed;
           inset: 0;
           z-index: 99999;
-          background: linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0284c7 100%);
+          background: #090d16;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 24px;
-          opacity: 1;
-          transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.55s ease;
         }
         .preloader-fade-out {
-          opacity: 0;
-          transform: scale(1.04);
+          transform: translateY(-100%);
+          opacity: 0.9;
+          pointer-events: none;
+        }
+
+        .preloader-glow {
+          position: absolute;
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(2, 132, 199, 0.22) 0%, transparent 70%);
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           pointer-events: none;
         }
 
@@ -114,27 +129,29 @@ export default function Preloader() {
           display: flex;
           flex-direction: column;
           align-items: center;
+          position: relative;
+          z-index: 2;
         }
 
         /* Pulse rings */
         .preloader-logo-wrapper {
           position: relative;
-          width: 88px;
-          height: 88px;
+          width: 84px;
+          height: 84px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 24px;
+          margin-bottom: 20px;
         }
         .preloader-pulse-ring {
           position: absolute;
-          inset: 0;
+          inset: -8px;
           border-radius: 50%;
-          border: 2px solid rgba(56, 189, 248, 0.5);
-          animation: pulseExpand 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+          border: 2px solid rgba(56, 189, 248, 0.4);
+          animation: pulseExpand 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite;
         }
         .preloader-pulse-ring.delay-1 {
-          animation-delay: 0.6s;
+          animation-delay: 0.5s;
         }
         .preloader-icon-box {
           width: 72px;
@@ -144,7 +161,7 @@ export default function Preloader() {
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 8px 30px rgba(56, 189, 248, 0.45);
+          box-shadow: 0 8px 30px rgba(56, 189, 248, 0.4);
           position: relative;
           z-index: 2;
         }
@@ -170,23 +187,22 @@ export default function Preloader() {
           gap: 6px;
           font-size: 13px;
           font-weight: 600;
-          color: #e0f2fe;
-          margin-bottom: 32px;
+          color: #94a3b8;
+          margin-bottom: 28px;
         }
 
         /* Progress Bar */
         .preloader-bar-track {
           width: 100%;
           height: 6px;
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.1);
           border-radius: 9999px;
           overflow: hidden;
           margin-bottom: 14px;
-          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
         }
         .preloader-bar-fill {
           height: 100%;
-          background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #7dd3fc 100%);
+          background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
           border-radius: 9999px;
           transition: width 0.15s ease-out;
           box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
@@ -200,13 +216,13 @@ export default function Preloader() {
           justify-content: space-between;
           font-size: 12px;
           font-weight: 600;
-          color: #e0f2fe;
+          color: #cbd5e1;
         }
         .preloader-quote {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          color: #bae6fd;
+          color: #94a3b8;
         }
         .preloader-percent {
           font-weight: 800;
@@ -218,9 +234,9 @@ export default function Preloader() {
         /* Keyframe Animations */
         @keyframes heartBeat {
           0% { transform: scale(1); }
-          14% { transform: scale(1.18); }
+          14% { transform: scale(1.15); }
           28% { transform: scale(1); }
-          42% { transform: scale(1.12); }
+          42% { transform: scale(1.1); }
           70% { transform: scale(1); }
         }
         @keyframes pulseExpand {

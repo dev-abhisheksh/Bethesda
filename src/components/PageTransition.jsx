@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import { Heart } from 'lucide-react';
+import { Heart, ShieldCheck } from 'lucide-react';
 
 /* ── Context ── */
 const TransitionContext = createContext(null);
@@ -30,10 +30,10 @@ export function TransitionProvider({ children }) {
           setTimeout(() => {
             setPhase('idle');
             busy.current = false;
-          }, 600);
+          }, 550);
         });
       });
-    }, 600);
+    }, 550);
   }, [navigate]);
 
   const isVisible = phase !== 'idle';
@@ -50,38 +50,23 @@ export function TransitionProvider({ children }) {
           width: '100vw', height: '100vh',
           zIndex: 99999,
           overflow: 'hidden',
-          animation: `${animName} 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
+          animation: `${animName} 0.55s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
         }}>
           {/* Dark base */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: '#0a0f1d',
+            background: '#090d16',
           }} />
 
-          {/* Floating orbs */}
+          {/* Glowing central aura */}
           <div style={{
             position: 'absolute',
-            width: '300px', height: '300px',
+            width: '400px', height: '400px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(2,132,199,0.35) 0%, transparent 70%)',
-            top: '10%', left: '-5%',
-            animation: 'orbFloat1 1.8s ease-in-out infinite alternate',
-          }} />
-          <div style={{
-            position: 'absolute',
-            width: '250px', height: '250px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)',
-            bottom: '5%', right: '-3%',
-            animation: 'orbFloat2 2s ease-in-out infinite alternate',
-          }} />
-          <div style={{
-            position: 'absolute',
-            width: '180px', height: '180px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(245,158,11,0.2) 0%, transparent 70%)',
-            top: '40%', right: '15%',
-            animation: 'orbFloat3 1.5s ease-in-out infinite alternate',
+            background: 'radial-gradient(circle, rgba(2,132,199,0.22) 0%, transparent 70%)',
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
           }} />
 
           {/* Center content */}
@@ -89,63 +74,77 @@ export function TransitionProvider({ children }) {
             position: 'absolute', inset: 0,
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
-            gap: '16px',
+            gap: '14px',
+            padding: '24px',
           }}>
-            {/* Pulsing ring behind heart */}
+            
+            {/* Pulsing Heart Logo Badge */}
             <div style={{
               position: 'relative',
-              width: '72px', height: '72px',
+              width: '84px', height: '84px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              marginBottom: '6px',
             }}>
               <div style={{
-                position: 'absolute', inset: '-12px',
+                position: 'absolute', inset: '-8px',
                 borderRadius: '50%',
-                border: '2px solid rgba(2,132,199,0.3)',
-                animation: 'pulseRing 1.2s ease-out infinite',
+                border: '2px solid rgba(56, 189, 248, 0.4)',
+                animation: 'pulseExpand 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite',
               }} />
               <div style={{
-                position: 'absolute', inset: '-6px',
+                position: 'absolute', inset: '-8px',
                 borderRadius: '50%',
-                border: '1.5px solid rgba(16,185,129,0.25)',
-                animation: 'pulseRing 1.2s ease-out 0.3s infinite',
+                border: '2px solid rgba(56, 189, 248, 0.4)',
+                animation: 'pulseExpand 1.8s cubic-bezier(0, 0.2, 0.8, 1) 0.5s infinite',
               }} />
               <div style={{
                 width: '72px', height: '72px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #0284c7, #10b981)',
+                borderRadius: '22px',
+                background: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 0 40px rgba(2,132,199,0.4), 0 0 80px rgba(16,185,129,0.2)',
-                animation: 'heartBounce 0.8s ease-in-out infinite alternate',
+                boxShadow: '0 8px 30px rgba(56, 189, 248, 0.4)',
+                position: 'relative', zIndex: 2,
               }}>
-                <Heart size={32} fill="#ffffff" color="#ffffff" />
+                <Heart size={34} fill="#ffffff" color="#ffffff" style={{ animation: 'heartBeat 1.2s ease-in-out infinite' }} />
               </div>
             </div>
 
-            {/* Text */}
+            {/* Brand Title */}
             <div style={{
-              color: '#ffffff', fontWeight: '800',
-              fontSize: '18px', letterSpacing: '0.08em',
-              fontFamily: 'system-ui, sans-serif',
-              textTransform: 'uppercase',
-              opacity: 0.9,
+              fontFamily: "'Outfit', sans-serif",
+              fontSize: '26px', fontWeight: '800',
+              letterSpacing: '-0.02em', color: '#ffffff',
             }}>
               BETHESDA <span style={{ color: '#38bdf8' }}>TRUST</span>
             </div>
 
+            {/* Subtitle */}
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px',
+              fontSize: '13px', fontWeight: '600', color: '#94a3b8',
+              marginBottom: '10px',
+            }}>
+              <ShieldCheck size={14} color="#38bdf8" />
+              <span>Charitable Non-Profit · Restoring Dignity</span>
+            </div>
+
             {/* Shimmer bar */}
             <div style={{
-              width: '120px', height: '3px',
-              borderRadius: '3px',
-              background: 'rgba(255,255,255,0.1)',
+              width: '140px', height: '4px',
+              borderRadius: '9999px',
+              background: 'rgba(255, 255, 255, 0.1)',
               overflow: 'hidden',
               position: 'relative',
             }}>
               <div style={{
                 position: 'absolute',
-                width: '50%', height: '100%',
-                background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.8), transparent)',
-                animation: 'shimmer 1s ease-in-out infinite',
+                width: '60%', height: '100%',
+                borderRadius: '9999px',
+                background: 'linear-gradient(90deg, transparent, #38bdf8, transparent)',
+                animation: 'shimmer 1.1s ease-in-out infinite',
               }} />
             </div>
+
           </div>
         </div>
       )}
@@ -160,28 +159,25 @@ export function TransitionProvider({ children }) {
           0%   { transform: translateY(0%); }
           100% { transform: translateY(-100%); }
         }
-        @keyframes orbFloat1 {
-          0%   { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(30px, -20px) scale(1.15); }
+        @keyframes heartBeat {
+          0% { transform: scale(1); }
+          14% { transform: scale(1.15); }
+          28% { transform: scale(1); }
+          42% { transform: scale(1.1); }
+          70% { transform: scale(1); }
         }
-        @keyframes orbFloat2 {
-          0%   { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(-25px, 15px) scale(1.1); }
-        }
-        @keyframes orbFloat3 {
-          0%   { transform: translate(0, 0) scale(0.9); }
-          100% { transform: translate(15px, -30px) scale(1.05); }
-        }
-        @keyframes pulseRing {
-          0%   { transform: scale(1); opacity: 0.6; }
-          100% { transform: scale(1.8); opacity: 0; }
-        }
-        @keyframes heartBounce {
-          0%   { transform: scale(1); }
-          100% { transform: scale(1.08); }
+        @keyframes pulseExpand {
+          0% {
+            transform: scale(0.85);
+            opacity: 0.8;
+          }
+          100% {
+            transform: scale(1.6);
+            opacity: 0;
+          }
         }
         @keyframes shimmer {
-          0%   { left: -50%; }
+          0%   { left: -60%; }
           100% { left: 100%; }
         }
       `}</style>
