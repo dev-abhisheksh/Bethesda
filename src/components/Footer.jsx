@@ -1,12 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import { Heart, ShieldCheck, ExternalLink, ArrowUp } from 'lucide-react';
+import { Heart, ShieldCheck, ArrowUp } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
-import { smoothScrollTo } from '../utils/smoothScroll';
 
 export default function Footer({ onOpenDonate }) {
   const scrollToTop = () => {
-    smoothScrollTo('#hero', 1000, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -67,10 +67,10 @@ export default function Footer({ onOpenDonate }) {
           <div>
             <h4 style={{ color: '#ffffff', fontSize: '16px', fontWeight: '700', marginBottom: '20px' }}>Navigation</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <a href="#hero" style={{ color: '#cbd5e1' }}>Home</a>
-              <a href="#causes" style={{ color: '#cbd5e1' }}>Our Causes</a>
-              <a href="#impact" style={{ color: '#cbd5e1' }}>Impact Metrics</a>
-              <a href="#calculator" style={{ color: '#cbd5e1' }}>Impact Calculator</a>
+              <Link to="/" style={{ color: '#cbd5e1' }}>Home</Link>
+              <Link to="/about" style={{ color: '#cbd5e1' }}>About Us</Link>
+              <Link to="/leadership" style={{ color: '#cbd5e1' }}>Leadership</Link>
+              <Link to="/calculator" style={{ color: '#cbd5e1' }}>Impact Calculator</Link>
             </div>
           </div>
 
@@ -78,10 +78,10 @@ export default function Footer({ onOpenDonate }) {
           <div>
             <h4 style={{ color: '#ffffff', fontSize: '16px', fontWeight: '700', marginBottom: '20px' }}>Governance</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <a href="#transparency" style={{ color: '#cbd5e1' }}>100% Financial Audits</a>
-              <a href="#faq" style={{ color: '#cbd5e1' }}>Tax Exemption (80G)</a>
-              <a href="#volunteer" style={{ color: '#cbd5e1' }}>Volunteer Network</a>
-              <a href="#contact" style={{ color: '#cbd5e1' }}>Head Office Location</a>
+              <Link to="/transparency" style={{ color: '#cbd5e1' }}>Financial Audits</Link>
+              <Link to="/transparency" style={{ color: '#cbd5e1' }}>Tax Exemption (80G)</Link>
+              <Link to="/about" style={{ color: '#cbd5e1' }}>Volunteer Network</Link>
+              <Link to="/about" style={{ color: '#cbd5e1' }}>Contact Us</Link>
             </div>
           </div>
 

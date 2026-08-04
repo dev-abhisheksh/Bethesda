@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Heart, Sun, Moon, Menu, X, Phone, ShieldCheck, ChevronRight, Users } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
 
-export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunteer }) {
+export default function Navbar({ theme, toggleTheme, onOpenDonate }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
@@ -18,18 +21,35 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
+  // Close drawer on route change
+  useEffect(() => { setMobileMenuOpen(false); }, [location.pathname]);
+
   const navLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Our Causes', href: '#causes' },
-    { name: 'Impact', href: '#impact' },
-    { name: 'Calculator', href: '#calculator' },
-    { name: 'Leadership', href: '#leadership' },
-    { name: 'Transparency', href: '#transparency' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', to: '/' },
+    { name: 'About Us', to: '/about' },
+    { name: 'Leadership', to: '/leadership' },
+    { name: 'Calculator', to: '/calculator' },
+    { name: 'Transparency', to: '/transparency' },
   ];
 
   const closeMobile = () => setMobileMenuOpen(false);
+
+  const handleVolunteer = () => {
+    if (location.pathname !== '/about') {
+      navigate('/about');
+      // small delay to let page render, then scroll
+      setTimeout(() => {
+        const el = document.getElementById('volunteer');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
+    } else {
+      const el = document.getElementById('volunteer');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    closeMobile();
+  };
+
+  const isActive = (to) => location.pathname === to;
 
   return (
     <>
@@ -38,13 +58,13 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
         <div className="container top-banner-inner">
           <div className="top-banner-left">
             <ShieldCheck size={15} color="#6ee7b7" />
-            <span><strong>100% Tax Deductible</strong> · 80G & 12A</span>
+            <span><strong>100% Tax Deductible</strong> · 80G &amp; 12A</span>
           </div>
           <div className="top-banner-links">
             <a href={`tel:${trustInfo.contact.phone}`}>
               <Phone size={13} /> {trustInfo.contact.phone}
             </a>
-            <button onClick={onOpenVolunteer}>Volunteer →</button>
+            <button onClick={handleVolunteer}>Volunteer →</button>
           </div>
         </div>
       </div>
@@ -53,7 +73,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
       <header className={`nav-header ${isScrolled ? 'nav-scrolled' : ''}`}>
         <div className="container nav-row">
           {/* Logo */}
-          <a href="#hero" className="nav-logo">
+          <Link to="/" className="nav-logo">
             <div className="nav-logo-icon">
               <Heart size={20} fill="#fff" />
             </div>
@@ -61,12 +81,18 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
               <span className="nav-logo-title">BETHESDA <em>TRUST</em></span>
               <span className="nav-logo-sub">Charitable Non-Profit</span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <nav className="nav-desktop">
             {navLinks.map((l) => (
-              <a key={l.name} href={l.href} className="nav-link">{l.name}</a>
+              <Link
+                key={l.name}
+                to={l.to}
+                className={`nav-link ${isActive(l.to) ? 'nav-link-active' : ''}`}
+              >
+                {l.name}
+              </Link>
             ))}
           </nav>
 
@@ -75,9 +101,9 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
             <button onClick={toggleTheme} className="nav-theme-btn" aria-label="Toggle theme">
               {theme === 'dark' ? <Sun size={18} color="#fbbf24" /> : <Moon size={18} />}
             </button>
-            <button onClick={() => onOpenDonate()} className="btn btn-accent nav-donate-btn">
+            <Link to="/donate" className="btn btn-accent nav-donate-btn">
               <Heart size={15} fill="#fff" /> Donate
-            </button>
+            </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="nav-hamburger"
@@ -94,16 +120,21 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
         <div className={`nav-drawer ${mobileMenuOpen ? 'nav-drawer-open' : ''}`} onClick={e => e.stopPropagation()}>
           <div className="nav-drawer-label">Navigation</div>
           {navLinks.map((l) => (
-            <a key={l.name} href={l.href} className="nav-drawer-link" onClick={closeMobile}>
+            <Link
+              key={l.name}
+              to={l.to}
+              className={`nav-drawer-link ${isActive(l.to) ? 'nav-drawer-link-active' : ''}`}
+              onClick={closeMobile}
+            >
               <span>{l.name}</span>
               <ChevronRight size={16} color="var(--brand-primary)" />
-            </a>
+            </Link>
           ))}
           <div className="nav-drawer-actions">
-            <button onClick={() => { closeMobile(); onOpenDonate(); }} className="btn btn-accent" style={{ width: '100%' }}>
+            <Link to="/donate" onClick={closeMobile} className="btn btn-accent" style={{ width: '100%', justifyContent: 'center' }}>
               <Heart size={16} fill="#fff" /> Donate Now
-            </button>
-            <button onClick={() => { closeMobile(); onOpenVolunteer(); }} className="btn btn-outline" style={{ width: '100%' }}>
+            </Link>
+            <button onClick={handleVolunteer} className="btn btn-outline" style={{ width: '100%' }}>
               <Users size={16} /> Join as Volunteer
             </button>
           </div>
@@ -162,9 +193,14 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
         .nav-desktop { display: flex; align-items: center; gap: 22px; }
         .nav-link {
           font-size: 14px; font-weight: 600; color: var(--text-secondary);
-          transition: color 0.2s ease;
+          transition: color 0.2s ease; position: relative; padding-bottom: 2px;
         }
         .nav-link:hover { color: var(--brand-primary); }
+        .nav-link-active { color: var(--brand-primary) !important; }
+        .nav-link-active::after {
+          content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+          height: 2px; background: var(--brand-primary); border-radius: 2px;
+        }
 
         /* Actions */
         .nav-actions { display: flex; align-items: center; gap: 10px; }
@@ -213,6 +249,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate, onOpenVolunte
           background: var(--bg-tertiary); font-size: 16px; font-weight: 700;
           color: var(--text-primary); transition: var(--transition);
         }
+        .nav-drawer-link-active { background: var(--brand-light); color: var(--brand-primary); }
         .nav-drawer-link:active { background: var(--brand-light); }
         .nav-drawer-actions {
           display: flex; flex-direction: column; gap: 10px;

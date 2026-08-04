@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import ScrollEnhancements from './components/ScrollEnhancements';
 import WhatsAppButton from './components/WhatsAppButton';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import ImpactCounters from './components/ImpactCounters';
-import Causes from './components/Causes';
-import Calculator from './components/Calculator';
-import LeadershipSection from './components/LeadershipSection';
-import Transparency from './components/Transparency';
-import Gallery from './components/Gallery';
-import VolunteerSection from './components/VolunteerSection';
-import FAQSection from './components/FAQSection';
-import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import DonationModal from './components/DonationModal';
-import { initAnimeSmoothScroll, smoothScrollTo } from './utils/smoothScroll';
 
-export default function App() {
+import HomePage from './pages/HomePage';
+import LeadershipPage from './pages/LeadershipPage';
+import CalculatorPage from './pages/CalculatorPage';
+import AboutPage from './pages/AboutPage';
+import TransparencyPage from './pages/TransparencyPage';
+import DonatePage from './pages/DonatePage';
+
+// Scroll to top whenever the route changes
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
+function AppInner() {
   const [theme, setTheme] = useState('light');
   const [isThemeSwitching, setIsThemeSwitching] = useState(false);
   const [targetTheme, setTargetTheme] = useState('dark');
@@ -30,25 +34,13 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Initialize Anime.js smooth scrolling for all internal anchor links
-  useEffect(() => {
-    const cleanup = initAnimeSmoothScroll();
-    return () => cleanup();
-  }, []);
-
   const toggleTheme = () => {
     if (isThemeSwitching) return;
     const nextTheme = theme === 'light' ? 'dark' : 'light';
     setTargetTheme(nextTheme);
     setIsThemeSwitching(true);
-
-    setTimeout(() => {
-      setTheme(nextTheme);
-    }, 280);
-
-    setTimeout(() => {
-      setIsThemeSwitching(false);
-    }, 750);
+    setTimeout(() => setTheme(nextTheme), 280);
+    setTimeout(() => setIsThemeSwitching(false), 750);
   };
 
   const handleOpenDonate = (causeTitle = '', amountVal = 2500) => {
@@ -57,54 +49,29 @@ export default function App() {
     setDonateOpen(true);
   };
 
-  const handleCloseDonate = () => {
-    setDonateOpen(false);
-  };
-
-  const handleOpenVolunteer = () => {
-    smoothScrollTo('#volunteer', 1000, -70);
-  };
+  const handleCloseDonate = () => setDonateOpen(false);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
-      {/* Initial Page Splash Preloader */}
+      <ScrollToTop />
       <Preloader />
-
-      {/* Theme Switcher Animated Transition Screen */}
       <ThemeTransitionOverlay active={isThemeSwitching} targetTheme={targetTheme} />
-
-      {/* Scroll Progress & Back-to-Top Enhancements */}
       <ScrollEnhancements />
-
-      {/* Floating WhatsApp Action Button */}
       <WhatsAppButton />
 
-      {/* Navigation Bar */}
-      <Navbar
-        theme={theme}
-        toggleTheme={toggleTheme}
-        onOpenDonate={handleOpenDonate}
-        onOpenVolunteer={handleOpenVolunteer}
-      />
+      <Navbar theme={theme} toggleTheme={toggleTheme} onOpenDonate={handleOpenDonate} />
 
-      {/* Main Content Sections */}
-      <main>
-        <Hero onOpenDonate={handleOpenDonate} />
-        <ImpactCounters />
-        <Causes onOpenDonate={handleOpenDonate} />
-        <Calculator onOpenDonate={handleOpenDonate} />
-        <LeadershipSection />
-        <Transparency />
-        <Gallery />
-        <VolunteerSection />
-        <FAQSection />
-        <ContactSection />
-      </main>
+      <Routes>
+        <Route path="/" element={<HomePage onOpenDonate={handleOpenDonate} />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/leadership" element={<LeadershipPage />} />
+        <Route path="/calculator" element={<CalculatorPage onOpenDonate={handleOpenDonate} />} />
+        <Route path="/transparency" element={<TransparencyPage />} />
+        <Route path="/donate" element={<DonatePage onOpenDonate={handleOpenDonate} />} />
+      </Routes>
 
-      {/* Footer */}
       <Footer onOpenDonate={handleOpenDonate} />
 
-      {/* Interactive Modal */}
       <DonationModal
         isOpen={donateOpen}
         onClose={handleCloseDonate}
@@ -112,5 +79,13 @@ export default function App() {
         initialAmount={selectedAmount}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppInner />
+    </BrowserRouter>
   );
 }
