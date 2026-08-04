@@ -14,6 +14,7 @@ import CalculatorPage from './pages/CalculatorPage';
 import AboutPage from './pages/AboutPage';
 import TransparencyPage from './pages/TransparencyPage';
 import DonatePage from './pages/DonatePage';
+import ContactPage from './pages/ContactPage';
 
 // Scroll to top whenever the route changes
 function ScrollToTop() {
@@ -68,6 +69,7 @@ function AppInner() {
         <Route path="/calculator" element={<CalculatorPage onOpenDonate={handleOpenDonate} />} />
         <Route path="/transparency" element={<TransparencyPage />} />
         <Route path="/donate" element={<DonatePage onOpenDonate={handleOpenDonate} />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
 
       <Footer onOpenDonate={handleOpenDonate} />

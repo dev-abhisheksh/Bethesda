@@ -81,7 +81,7 @@ export default function Footer({ onOpenDonate }) {
               <Link to="/transparency" style={{ color: '#cbd5e1' }}>Financial Audits</Link>
               <Link to="/transparency" style={{ color: '#cbd5e1' }}>Tax Exemption (80G)</Link>
               <Link to="/about" style={{ color: '#cbd5e1' }}>Volunteer Network</Link>
-              <Link to="/about" style={{ color: '#cbd5e1' }}>Contact Us</Link>
+              <Link to="/contact" style={{ color: '#cbd5e1' }}>Contact Us</Link>
             </div>
           </div>
 

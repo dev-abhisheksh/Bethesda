@@ -1,7 +1,6 @@
 import React from 'react';
 import Gallery from '../components/Gallery';
 import VolunteerSection from '../components/VolunteerSection';
-import ContactSection from '../components/ContactSection';
 import { Info, Globe, MapPin, Mail } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
 
@@ -100,7 +99,6 @@ export default function AboutPage() {
 
       {/* Volunteer & Contact */}
       <VolunteerSection />
-      <ContactSection />
     </main>
   );
 }

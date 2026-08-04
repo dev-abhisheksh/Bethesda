@@ -30,6 +30,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDonate }) {
     { name: 'Leadership', to: '/leadership' },
     { name: 'Calculator', to: '/calculator' },
     { name: 'Transparency', to: '/transparency' },
+    { name: 'Contact', to: '/contact' },
   ];
 
   const closeMobile = () => setMobileMenuOpen(false);
