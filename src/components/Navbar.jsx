@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { TransitionLink, usePageTransition } from './PageTransition';
 import { Heart, Sun, Moon, Menu, X, Phone, ShieldCheck, ChevronRight, Users } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
 
@@ -7,7 +8,7 @@ export default function Navbar({ theme, toggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+  const { navigateTo } = usePageTransition();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
@@ -37,12 +38,11 @@ export default function Navbar({ theme, toggleTheme }) {
 
   const handleVolunteer = () => {
     if (location.pathname !== '/about') {
-      navigate('/about');
-      // small delay to let page render, then scroll
+      navigateTo('/about');
       setTimeout(() => {
         const el = document.getElementById('volunteer');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 400);
+      }, 1200);
     } else {
       const el = document.getElementById('volunteer');
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -74,7 +74,7 @@ export default function Navbar({ theme, toggleTheme }) {
       <header className={`nav-header ${isScrolled ? 'nav-scrolled' : ''}`}>
         <div className="container nav-row">
           {/* Logo */}
-          <Link to="/" className="nav-logo">
+          <TransitionLink to="/" className="nav-logo">
             <div className="nav-logo-icon">
               <Heart size={20} fill="#fff" />
             </div>
@@ -82,18 +82,18 @@ export default function Navbar({ theme, toggleTheme }) {
               <span className="nav-logo-title">BETHESDA <em>TRUST</em></span>
               <span className="nav-logo-sub">Charitable Non-Profit</span>
             </div>
-          </Link>
+          </TransitionLink>
 
           {/* Desktop Links */}
           <nav className="nav-desktop">
             {navLinks.map((l) => (
-              <Link
+              <TransitionLink
                 key={l.name}
                 to={l.to}
                 className={`nav-link ${isActive(l.to) ? 'nav-link-active' : ''}`}
               >
                 {l.name}
-              </Link>
+              </TransitionLink>
             ))}
           </nav>
 
@@ -102,9 +102,9 @@ export default function Navbar({ theme, toggleTheme }) {
             <button onClick={toggleTheme} className="nav-theme-btn" aria-label="Toggle theme">
               {theme === 'dark' ? <Sun size={18} color="#fbbf24" /> : <Moon size={18} />}
             </button>
-            <Link to="/donate" className="btn btn-accent nav-donate-btn">
+            <TransitionLink to="/donate" className="btn btn-accent nav-donate-btn">
               <Heart size={15} fill="#fff" /> Donate
-            </Link>
+            </TransitionLink>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="nav-hamburger"
@@ -121,7 +121,7 @@ export default function Navbar({ theme, toggleTheme }) {
         <div className={`nav-drawer ${mobileMenuOpen ? 'nav-drawer-open' : ''}`} onClick={e => e.stopPropagation()}>
           <div className="nav-drawer-label">Navigation</div>
           {navLinks.map((l) => (
-            <Link
+            <TransitionLink
               key={l.name}
               to={l.to}
               className={`nav-drawer-link ${isActive(l.to) ? 'nav-drawer-link-active' : ''}`}
@@ -129,12 +129,12 @@ export default function Navbar({ theme, toggleTheme }) {
             >
               <span>{l.name}</span>
               <ChevronRight size={16} color="var(--brand-primary)" />
-            </Link>
+            </TransitionLink>
           ))}
           <div className="nav-drawer-actions">
-            <Link to="/donate" onClick={closeMobile} className="btn btn-accent" style={{ width: '100%', justifyContent: 'center' }}>
+            <TransitionLink to="/donate" onClick={closeMobile} className="btn btn-accent" style={{ width: '100%', justifyContent: 'center' }}>
               <Heart size={16} fill="#fff" /> Donate Now
-            </Link>
+            </TransitionLink>
             <button onClick={handleVolunteer} className="btn btn-outline" style={{ width: '100%' }}>
               <Users size={16} /> Join as Volunteer
             </button>

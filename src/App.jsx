@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import ScrollEnhancements from './components/ScrollEnhancements';
 import WhatsAppButton from './components/WhatsAppButton';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { TransitionProvider, usePageTransition } from './components/PageTransition';
 
 import HomePage from './pages/HomePage';
 import LeadershipPage from './pages/LeadershipPage';
@@ -15,18 +16,11 @@ import TransparencyPage from './pages/TransparencyPage';
 import DonatePage from './pages/DonatePage';
 import ContactPage from './pages/ContactPage';
 
-// Scroll to top whenever the route changes
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
-  return null;
-}
-
 function AppInner() {
   const [theme, setTheme] = useState('light');
   const [isThemeSwitching, setIsThemeSwitching] = useState(false);
   const [targetTheme, setTargetTheme] = useState('dark');
-  const navigate = useNavigate();
+  const { navigateTo } = usePageTransition();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -41,12 +35,11 @@ function AppInner() {
     setTimeout(() => setIsThemeSwitching(false), 750);
   };
 
-  // All "Donate" actions now navigate to the /donate page
-  const handleOpenDonate = () => navigate('/donate');
+  // All "Donate" actions now navigate to the /donate page with curtain
+  const handleOpenDonate = () => navigateTo('/donate');
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
-      <ScrollToTop />
       <Preloader />
       <ThemeTransitionOverlay active={isThemeSwitching} targetTheme={targetTheme} />
       <ScrollEnhancements />
@@ -72,7 +65,9 @@ function AppInner() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AppInner />
+      <TransitionProvider>
+        <AppInner />
+      </TransitionProvider>
     </BrowserRouter>
   );
 }

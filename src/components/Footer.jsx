@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { TransitionLink } from './PageTransition';
 import Card from '@mui/material/Card';
 import { Heart, ShieldCheck, ArrowUp } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
@@ -67,10 +67,10 @@ export default function Footer() {
           <div>
             <h4 style={{ color: '#ffffff', fontSize: '16px', fontWeight: '700', marginBottom: '20px' }}>Navigation</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <Link to="/" style={{ color: '#cbd5e1' }}>Home</Link>
-              <Link to="/about" style={{ color: '#cbd5e1' }}>About Us</Link>
-              <Link to="/leadership" style={{ color: '#cbd5e1' }}>Leadership</Link>
-              <Link to="/calculator" style={{ color: '#cbd5e1' }}>Impact Calculator</Link>
+              <TransitionLink to="/" style={{ color: '#cbd5e1' }}>Home</TransitionLink>
+              <TransitionLink to="/about" style={{ color: '#cbd5e1' }}>About Us</TransitionLink>
+              <TransitionLink to="/leadership" style={{ color: '#cbd5e1' }}>Leadership</TransitionLink>
+              <TransitionLink to="/calculator" style={{ color: '#cbd5e1' }}>Impact Calculator</TransitionLink>
             </div>
           </div>
 
@@ -78,10 +78,10 @@ export default function Footer() {
           <div>
             <h4 style={{ color: '#ffffff', fontSize: '16px', fontWeight: '700', marginBottom: '20px' }}>Governance</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <Link to="/transparency" style={{ color: '#cbd5e1' }}>Financial Audits</Link>
-              <Link to="/transparency" style={{ color: '#cbd5e1' }}>Tax Exemption (80G)</Link>
-              <Link to="/about" style={{ color: '#cbd5e1' }}>Volunteer Network</Link>
-              <Link to="/contact" style={{ color: '#cbd5e1' }}>Contact Us</Link>
+              <TransitionLink to="/transparency" style={{ color: '#cbd5e1' }}>Financial Audits</TransitionLink>
+              <TransitionLink to="/transparency" style={{ color: '#cbd5e1' }}>Tax Exemption (80G)</TransitionLink>
+              <TransitionLink to="/about" style={{ color: '#cbd5e1' }}>Volunteer Network</TransitionLink>
+              <TransitionLink to="/contact" style={{ color: '#cbd5e1' }}>Contact Us</TransitionLink>
             </div>
           </div>
 
@@ -96,14 +96,14 @@ export default function Footer() {
             <p style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '20px' }}>
               Your tax-deductible contribution provides hot meals, medicines, and schooling immediately.
             </p>
-            <Link
+            <TransitionLink
               to="/donate"
               className="btn btn-accent"
               style={{ width: '100%', padding: '12px', fontSize: '15px', justifyContent: 'center', display: 'flex' }}
             >
               <Heart size={16} fill="#ffffff" />
               <span>Donate Now</span>
-            </Link>
+            </TransitionLink>
           </Card>
 
         </div>
