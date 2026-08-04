@@ -39,6 +39,11 @@ export function TransitionProvider({ children }) {
   const isVisible = phase !== 'idle';
   const animName = phase === 'covering' ? 'curtainCover' : 'curtainReveal';
 
+  const currentTheme = typeof document !== 'undefined'
+    ? (document.documentElement.getAttribute('data-theme') || localStorage.getItem('bethesda_theme') || 'light')
+    : 'light';
+  const isDark = currentTheme === 'dark';
+
   return (
     <TransitionContext.Provider value={{ navigateTo }}>
       {children}
@@ -52,10 +57,11 @@ export function TransitionProvider({ children }) {
           overflow: 'hidden',
           animation: `${animName} 0.55s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
         }}>
-          {/* Dark base */}
+          {/* Base background */}
           <div style={{
             position: 'absolute', inset: 0,
-            background: '#090d16',
+            background: isDark ? '#090d16' : '#ffffff',
+            transition: 'background 0.3s ease',
           }} />
 
           {/* Glowing central aura */}
@@ -63,7 +69,9 @@ export function TransitionProvider({ children }) {
             position: 'absolute',
             width: '400px', height: '400px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(2,132,199,0.22) 0%, transparent 70%)',
+            background: isDark
+              ? 'radial-gradient(circle, rgba(2,132,199,0.25) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(2,132,199,0.12) 0%, transparent 70%)',
             top: '50%', left: '50%',
             transform: 'translate(-50%, -50%)',
             pointerEvents: 'none',
@@ -88,13 +96,13 @@ export function TransitionProvider({ children }) {
               <div style={{
                 position: 'absolute', inset: '-8px',
                 borderRadius: '50%',
-                border: '2px solid rgba(56, 189, 248, 0.4)',
+                border: isDark ? '2px solid rgba(56, 189, 248, 0.4)' : '2px solid rgba(2, 132, 199, 0.3)',
                 animation: 'pulseExpand 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite',
               }} />
               <div style={{
                 position: 'absolute', inset: '-8px',
                 borderRadius: '50%',
-                border: '2px solid rgba(56, 189, 248, 0.4)',
+                border: isDark ? '2px solid rgba(56, 189, 248, 0.4)' : '2px solid rgba(2, 132, 199, 0.3)',
                 animation: 'pulseExpand 1.8s cubic-bezier(0, 0.2, 0.8, 1) 0.5s infinite',
               }} />
               <div style={{
@@ -102,7 +110,7 @@ export function TransitionProvider({ children }) {
                 borderRadius: '22px',
                 background: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 8px 30px rgba(56, 189, 248, 0.4)',
+                boxShadow: isDark ? '0 8px 30px rgba(56, 189, 248, 0.4)' : '0 8px 30px rgba(2, 132, 199, 0.35)',
                 position: 'relative', zIndex: 2,
               }}>
                 <Heart size={34} fill="#ffffff" color="#ffffff" style={{ animation: 'heartBeat 1.2s ease-in-out infinite' }} />
@@ -113,18 +121,20 @@ export function TransitionProvider({ children }) {
             <div style={{
               fontFamily: "'Outfit', sans-serif",
               fontSize: '26px', fontWeight: '800',
-              letterSpacing: '-0.02em', color: '#ffffff',
+              letterSpacing: '-0.02em',
+              color: isDark ? '#ffffff' : '#0f172a',
             }}>
-              BETHESDA <span style={{ color: '#38bdf8' }}>TRUST</span>
+              BETHESDA <span style={{ color: isDark ? '#38bdf8' : '#0284c7' }}>TRUST</span>
             </div>
 
             {/* Subtitle */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px',
-              fontSize: '13px', fontWeight: '600', color: '#94a3b8',
+              fontSize: '13px', fontWeight: '600',
+              color: isDark ? '#94a3b8' : '#475569',
               marginBottom: '10px',
             }}>
-              <ShieldCheck size={14} color="#38bdf8" />
+              <ShieldCheck size={14} color={isDark ? '#38bdf8' : '#0284c7'} />
               <span>Charitable Non-Profit · Restoring Dignity</span>
             </div>
 
@@ -132,7 +142,7 @@ export function TransitionProvider({ children }) {
             <div style={{
               width: '140px', height: '4px',
               borderRadius: '9999px',
-              background: 'rgba(255, 255, 255, 0.1)',
+              background: isDark ? 'rgba(255, 255, 255, 0.1)' : '#e2e8f0',
               overflow: 'hidden',
               position: 'relative',
             }}>
@@ -140,7 +150,7 @@ export function TransitionProvider({ children }) {
                 position: 'absolute',
                 width: '60%', height: '100%',
                 borderRadius: '9999px',
-                background: 'linear-gradient(90deg, transparent, #38bdf8, transparent)',
+                background: 'linear-gradient(90deg, transparent, #0284c7, transparent)',
                 animation: 'shimmer 1.1s ease-in-out infinite',
               }} />
             </div>

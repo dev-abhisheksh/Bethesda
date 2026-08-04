@@ -5,6 +5,7 @@ export default function Preloader() {
   const [progress, setProgress] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [theme] = useState(() => localStorage.getItem('bethesda_theme') || 'light');
 
   useEffect(() => {
     // Lock body scroll while loader is active
@@ -43,9 +44,11 @@ export default function Preloader() {
 
   if (isDone) return null;
 
+  const isDark = theme === 'dark';
+
   return (
     <div 
-      className={`preloader-overlay ${isFading ? 'preloader-fade-out' : ''}`}
+      className={`preloader-overlay ${isDark ? 'is-dark' : 'is-light'} ${isFading ? 'preloader-fade-out' : ''}`}
       aria-label="Loading Bethesda Trust Website"
     >
       {/* Background Glow */}
@@ -96,13 +99,18 @@ export default function Preloader() {
           position: fixed;
           inset: 0;
           z-index: 99999;
-          background: #090d16;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 24px;
           overflow: hidden;
           transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.55s ease;
+        }
+        .preloader-overlay.is-light {
+          background: #ffffff;
+        }
+        .preloader-overlay.is-dark {
+          background: #090d16;
         }
         .preloader-fade-out {
           transform: translateY(-100%);
@@ -115,11 +123,16 @@ export default function Preloader() {
           width: 400px;
           height: 400px;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(2, 132, 199, 0.22) 0%, transparent 70%);
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           pointer-events: none;
+        }
+        .is-light .preloader-glow {
+          background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, transparent 70%);
+        }
+        .is-dark .preloader-glow {
+          background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, transparent 70%);
         }
 
         .preloader-content {
@@ -147,8 +160,13 @@ export default function Preloader() {
           position: absolute;
           inset: -8px;
           border-radius: 50%;
-          border: 2px solid rgba(56, 189, 248, 0.4);
           animation: pulseExpand 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+        .is-light .preloader-pulse-ring {
+          border: 2px solid rgba(2, 132, 199, 0.3);
+        }
+        .is-dark .preloader-pulse-ring {
+          border: 2px solid rgba(56, 189, 248, 0.4);
         }
         .preloader-pulse-ring.delay-1 {
           animation-delay: 0.5s;
@@ -175,31 +193,51 @@ export default function Preloader() {
           font-size: 26px;
           font-weight: 800;
           letter-spacing: -0.02em;
-          color: #ffffff;
           margin-bottom: 6px;
         }
-        .preloader-title span {
+        .is-light .preloader-title {
+          color: #0f172a;
+        }
+        .is-light .preloader-title span {
+          color: #0284c7;
+        }
+        .is-dark .preloader-title {
+          color: #ffffff;
+        }
+        .is-dark .preloader-title span {
           color: #38bdf8;
         }
+
         .preloader-subtitle {
           display: inline-flex;
           align-items: center;
           gap: 6px;
           font-size: 13px;
           font-weight: 600;
-          color: #94a3b8;
           margin-bottom: 28px;
+        }
+        .is-light .preloader-subtitle {
+          color: #475569;
+        }
+        .is-dark .preloader-subtitle {
+          color: #94a3b8;
         }
 
         /* Progress Bar */
         .preloader-bar-track {
           width: 100%;
           height: 6px;
-          background: rgba(255, 255, 255, 0.1);
           border-radius: 9999px;
           overflow: hidden;
           margin-bottom: 14px;
         }
+        .is-light .preloader-bar-track {
+          background: #e2e8f0;
+        }
+        .is-dark .preloader-bar-track {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
         .preloader-bar-fill {
           height: 100%;
           background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
@@ -216,19 +254,36 @@ export default function Preloader() {
           justify-content: space-between;
           font-size: 12px;
           font-weight: 600;
+        }
+        .is-light .preloader-footer-row {
+          color: #475569;
+        }
+        .is-dark .preloader-footer-row {
           color: #cbd5e1;
         }
+
         .preloader-quote {
           display: inline-flex;
           align-items: center;
           gap: 5px;
+        }
+        .is-light .preloader-quote {
+          color: #64748b;
+        }
+        .is-dark .preloader-quote {
           color: #94a3b8;
         }
+
         .preloader-percent {
           font-weight: 800;
-          color: #38bdf8;
           font-family: monospace;
           font-size: 13px;
+        }
+        .is-light .preloader-percent {
+          color: #0284c7;
+        }
+        .is-dark .preloader-percent {
+          color: #38bdf8;
         }
 
         /* Keyframe Animations */
