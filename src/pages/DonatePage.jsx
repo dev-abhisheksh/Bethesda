@@ -20,7 +20,7 @@ export default function DonatePage() {
     <main style={{ paddingTop: '20px' }}>
       {/* Page Hero Banner */}
       <div style={{
-        background: 'radial-gradient(circle at 60% 30%, rgba(16,185,129,0.15) 0%, transparent 55%), radial-gradient(circle at 10% 80%, rgba(245,158,11,0.1) 0%, transparent 50%)',
+        background: 'var(--hero-bg)',
         padding: '72px 0 56px',
         textAlign: 'center',
         borderBottom: '1px solid var(--border-color)'

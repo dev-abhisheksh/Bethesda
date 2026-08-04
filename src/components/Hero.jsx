@@ -9,7 +9,7 @@ export default function Hero({ onOpenDonate }) {
       position: 'relative',
       padding: '60px 0 80px 0',
       overflow: 'hidden',
-      background: 'radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 50%), radial-gradient(circle at 10% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 40%)'
+      background: 'var(--hero-bg)'
     }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }} className="hero-grid">

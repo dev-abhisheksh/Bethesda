@@ -9,7 +9,7 @@ export default function AboutPage() {
     <main style={{ paddingTop: '20px' }}>
       {/* Page Hero Banner */}
       <div style={{
-        background: 'radial-gradient(circle at 50% 30%, rgba(16,185,129,0.12) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(2,132,199,0.08) 0%, transparent 50%)',
+        background: 'var(--hero-bg)',
         padding: '72px 0 48px',
         textAlign: 'center',
         borderBottom: '1px solid var(--border-color)'
