@@ -164,11 +164,11 @@ export default function Navbar({ theme, toggleTheme }) {
           position: sticky; top: 0; z-index: 200;
           background: var(--bg-primary); backdrop-filter: blur(16px);
           border-bottom: 1px solid transparent;
-          padding: 14px 0; transition: var(--transition);
+          padding: 14px 0; transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .nav-header.nav-scrolled {
           background: var(--bg-glass); border-bottom-color: var(--border-glass);
-          padding: 10px 0;
+          box-shadow: 0 2px 16px rgba(0,0,0,0.06);
         }
         .nav-row { display: flex; align-items: center; justify-content: space-between; }
 

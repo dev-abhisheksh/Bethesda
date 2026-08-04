@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, ShieldCheck, CheckCircle2, Star, Zap, Users } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
+import { Heart, ShieldCheck, CheckCircle2, Star, Zap, Users, Clock } from 'lucide-react';
 
 const tiers = [
   { label: 'Supporter', amount: 500, desc: 'Feeds a family for a day', color: '#10b981', icon: <Heart size={20} /> },
@@ -10,6 +9,13 @@ const tiers = [
 ];
 
 export default function DonatePage() {
+  const [toast, setToast] = useState(false);
+
+  const showToast = useCallback(() => {
+    setToast(true);
+    setTimeout(() => setToast(false), 3500);
+  }, []);
+
   return (
     <main style={{ paddingTop: '20px' }}>
       {/* Page Hero Banner */}
@@ -20,9 +26,7 @@ export default function DonatePage() {
         borderBottom: '1px solid var(--border-color)'
       }}>
         <div className="container">
-          <div className="section-badge" style={{ justifyContent: 'center', display: 'flex', margin: '0 auto 16px' }}>
-            <Heart size={14} fill="currentColor" /> Donate
-          </div>
+
           <h1 style={{
             fontSize: 'clamp(32px, 5vw, 56px)',
             fontWeight: '800',
@@ -99,11 +103,11 @@ export default function DonatePage() {
           ))}
         </div>
 
-        {/* Contact CTA */}
+        {/* CTA */}
         <div style={{ textAlign: 'center', marginTop: '36px' }}>
-          <Link to="/contact" className="btn btn-accent" style={{ padding: '14px 36px', fontSize: '16px', display: 'inline-flex' }}>
-            <Heart size={18} fill="#fff" /> Contact Us to Donate
-          </Link>
+          <button onClick={showToast} className="btn btn-accent" style={{ padding: '14px 36px', fontSize: '16px' }}>
+            <Heart size={18} fill="#fff" /> Donate Now
+          </button>
         </div>
       </div>
 
@@ -135,6 +139,36 @@ export default function DonatePage() {
           </div>
         </div>
       </div>
+
+      {/* Toast */}
+      <div style={{
+        position: 'fixed',
+        bottom: '24px',
+        left: '50%',
+        transform: `translateX(-50%) translateY(${toast ? '0' : '16px'})`,
+        opacity: toast ? 1 : 0,
+        pointerEvents: 'none',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        padding: '13px 20px',
+        borderRadius: '14px',
+        background: '#0f172a',
+        color: '#fff',
+        fontSize: '14px',
+        fontWeight: '600',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
+        width: 'max-content',
+        maxWidth: 'calc(100vw - 32px)',
+        whiteSpace: 'normal',
+        wordBreak: 'break-word',
+        textAlign: 'center',
+        lineHeight: '1.4',
+      }}>
+        <Clock size={16} color="#fbbf24" style={{ flexShrink: 0 }} />
+        Payment integration coming soon — we'll notify you!</div>
     </main>
   );
 }
