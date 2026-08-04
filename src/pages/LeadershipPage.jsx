@@ -4,33 +4,7 @@ import { Heart, Users, Award, Star } from 'lucide-react';
 
 export default function LeadershipPage() {
   return (
-    <main style={{ paddingTop: '20px' }}>
-      {/* Page Hero Banner */}
-      <div style={{
-        background: 'radial-gradient(circle at 60% 40%, rgba(2,132,199,0.15) 0%, transparent 60%), radial-gradient(circle at 20% 80%, rgba(16,185,129,0.1) 0%, transparent 50%)',
-        padding: '72px 0 48px',
-        textAlign: 'center',
-        borderBottom: '1px solid var(--border-color)'
-      }}>
-        <div className="container">
-          <div className="section-badge" style={{ justifyContent: 'center', display: 'flex', margin: '0 auto 16px' }}>
-            <Users size={14} /> Our Team
-          </div>
-          <h1 style={{
-            fontSize: 'clamp(32px, 5vw, 56px)',
-            fontWeight: '800',
-            letterSpacing: '-0.03em',
-            color: 'var(--text-primary)',
-            marginBottom: '16px'
-          }}>
-            Meet Our <span style={{ color: 'var(--brand-primary)' }}>Leadership</span>
-          </h1>
-          <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '560px', margin: '0 auto', lineHeight: '1.6' }}>
-            The dedicated trustees and directors who guide Bethesda Trust with integrity, compassion, and transparency.
-          </p>
-        </div>
-      </div>
-
+    <main>
       {/* Leadership Cards */}
       <LeadershipSection />
 

@@ -16,9 +16,7 @@ export default function AboutPage() {
         borderBottom: '1px solid var(--border-color)'
       }}>
         <div className="container">
-          <div className="section-badge" style={{ justifyContent: 'center', display: 'flex', margin: '0 auto 16px' }}>
-            <Info size={14} /> Who We Are
-          </div>
+
           <h1 style={{
             fontSize: 'clamp(32px, 5vw, 56px)',
             fontWeight: '800',
