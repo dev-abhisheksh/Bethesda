@@ -45,7 +45,7 @@ export default function ThemeTransitionOverlay({ active, targetTheme }) {
         }
 
         .theme-overlay.target-dark {
-          background: rgba(12, 74, 110, 0.92);
+          background: rgba(9, 13, 22, 0.95);
           color: #ffffff;
         }
 
