@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import ScrollEnhancements from './components/ScrollEnhancements';
 import WhatsAppButton from './components/WhatsAppButton';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import DonationModal from './components/DonationModal';
 
 import HomePage from './pages/HomePage';
 import LeadershipPage from './pages/LeadershipPage';
@@ -27,9 +26,7 @@ function AppInner() {
   const [theme, setTheme] = useState('light');
   const [isThemeSwitching, setIsThemeSwitching] = useState(false);
   const [targetTheme, setTargetTheme] = useState('dark');
-  const [donateOpen, setDonateOpen] = useState(false);
-  const [selectedCause, setSelectedCause] = useState('');
-  const [selectedAmount, setSelectedAmount] = useState(2500);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -44,13 +41,8 @@ function AppInner() {
     setTimeout(() => setIsThemeSwitching(false), 750);
   };
 
-  const handleOpenDonate = (causeTitle = '', amountVal = 2500) => {
-    setSelectedCause(causeTitle);
-    setSelectedAmount(amountVal);
-    setDonateOpen(true);
-  };
-
-  const handleCloseDonate = () => setDonateOpen(false);
+  // All "Donate" actions now navigate to the /donate page
+  const handleOpenDonate = () => navigate('/donate');
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
@@ -60,7 +52,7 @@ function AppInner() {
       <ScrollEnhancements />
       <WhatsAppButton />
 
-      <Navbar theme={theme} toggleTheme={toggleTheme} onOpenDonate={handleOpenDonate} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <Routes>
         <Route path="/" element={<HomePage onOpenDonate={handleOpenDonate} />} />
@@ -68,18 +60,11 @@ function AppInner() {
         <Route path="/leadership" element={<LeadershipPage />} />
         <Route path="/calculator" element={<CalculatorPage onOpenDonate={handleOpenDonate} />} />
         <Route path="/transparency" element={<TransparencyPage />} />
-        <Route path="/donate" element={<DonatePage onOpenDonate={handleOpenDonate} />} />
+        <Route path="/donate" element={<DonatePage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
 
-      <Footer onOpenDonate={handleOpenDonate} />
-
-      <DonationModal
-        isOpen={donateOpen}
-        onClose={handleCloseDonate}
-        initialCause={selectedCause}
-        initialAmount={selectedAmount}
-      />
+      <Footer />
     </div>
   );
 }

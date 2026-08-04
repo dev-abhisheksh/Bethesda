@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import DonationModal from '../components/DonationModal';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Heart, ShieldCheck, CheckCircle2, Star, Zap, Users } from 'lucide-react';
 
 const tiers = [
@@ -9,14 +9,7 @@ const tiers = [
   { label: 'Patron', amount: 50000, desc: 'Builds a classroom corner', color: '#f59e0b', icon: <Zap size={20} /> },
 ];
 
-export default function DonatePage({ onOpenDonate }) {
-  // Automatically open the modal when this page is visited
-  useEffect(() => {
-    // Small delay to let layout render first
-    const t = setTimeout(() => onOpenDonate('', 2500), 300);
-    return () => clearTimeout(t);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+export default function DonatePage() {
   return (
     <main style={{ paddingTop: '20px' }}>
       {/* Page Hero Banner */}
@@ -65,14 +58,13 @@ export default function DonatePage({ onOpenDonate }) {
           <h2 style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text-primary)', marginBottom: '8px' }}>
             Choose Your Impact Level
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '15px' }}>Click any tier to open the secure donation form</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: '15px' }}>Every contribution makes a real, measurable difference</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', maxWidth: '960px', margin: '0 auto' }}>
           {tiers.map((tier) => (
-            <button
+            <div
               key={tier.label}
-              onClick={() => onOpenDonate('', tier.amount)}
               style={{
                 position: 'relative',
                 padding: '28px 24px',
@@ -80,7 +72,6 @@ export default function DonatePage({ onOpenDonate }) {
                 background: 'var(--bg-card)',
                 border: `2px solid ${tier.popular ? tier.color : 'var(--border-color)'}`,
                 textAlign: 'left',
-                cursor: 'pointer',
                 boxShadow: tier.popular ? `0 8px 30px ${tier.color}22` : 'var(--shadow-sm)',
                 transition: 'transform 0.2s ease, box-shadow 0.2s ease',
               }}
@@ -104,19 +95,15 @@ export default function DonatePage({ onOpenDonate }) {
               <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>{tier.label}</div>
               <div style={{ fontSize: '30px', fontWeight: '900', color: 'var(--text-primary)', marginBottom: '8px' }}>₹{tier.amount.toLocaleString('en-IN')}</div>
               <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{tier.desc}</div>
-            </button>
+            </div>
           ))}
         </div>
 
-        {/* Custom amount CTA */}
+        {/* Contact CTA */}
         <div style={{ textAlign: 'center', marginTop: '36px' }}>
-          <button
-            onClick={() => onOpenDonate()}
-            className="btn btn-accent"
-            style={{ padding: '14px 36px', fontSize: '16px' }}
-          >
-            <Heart size={18} fill="#fff" /> Donate a Custom Amount
-          </button>
+          <Link to="/contact" className="btn btn-accent" style={{ padding: '14px 36px', fontSize: '16px', display: 'inline-flex' }}>
+            <Heart size={18} fill="#fff" /> Contact Us to Donate
+          </Link>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import { Heart, ShieldCheck, ArrowUp } from 'lucide-react';
 import { trustInfo } from '../data/bethesdaData';
 
-export default function Footer({ onOpenDonate }) {
+export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -96,14 +96,14 @@ export default function Footer({ onOpenDonate }) {
             <p style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '20px' }}>
               Your tax-deductible contribution provides hot meals, medicines, and schooling immediately.
             </p>
-            <button
-              onClick={() => onOpenDonate()}
+            <Link
+              to="/donate"
               className="btn btn-accent"
-              style={{ width: '100%', padding: '12px', fontSize: '15px' }}
+              style={{ width: '100%', padding: '12px', fontSize: '15px', justifyContent: 'center', display: 'flex' }}
             >
               <Heart size={16} fill="#ffffff" />
               <span>Donate Now</span>
-            </button>
+            </Link>
           </Card>
 
         </div>
